@@ -1,8 +1,45 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import './Login.css'
-
+import axios from '../../../axios/axiosInstance'
 function Login() {
+
+  const [errors,setErrors] = useState({});  
+
+const [loginForm,setLoginForm]=useState({
+  email:"",
+  password:""
+})
+
+const submitHandler=async(e)=>{
+e.preventDefault()
+try {
+  
+   await axios.post('/login',{
+      email:loginForm.email,
+      password:loginForm.password
+   }).then((response)=>{
+    console.log(response);
+   }).catch(error=>{
+    console.log(error.message);
+    setErrors(error.response.data);
+   })
+
+
+} catch (error) {
+  console.log(error.message);
+}
+}
+
+
+const onChangeHandler=(e)=>{
+const {name,value}=e.target
+setLoginForm({...loginForm,[name]:value})
+}
+
+
+
+console.log(loginForm);
   return (
 
 <div className="image-box">
@@ -11,30 +48,38 @@ function Login() {
 
 <div className="login">
   <h1 className="text-center">Login</h1>
-<form className="needs-validation">
+<form className="needs-validation" onSubmit={submitHandler}>
     <div className="form-group was-validated mt-5 mb-2">
         <label className="form-label fs-6" for="email">Email address</label>
         <input className="form-control" 
         type="email" 
-        id="email" required
+        id="email" 
          autoFocus
-          placeholder='Enter your email...' />
-        <div className="invalid-feedback">
-            Please enter your email address
-        </div>
+          placeholder='Enter your email...'  style={{borderColor:'black',backgroundImage:'none'}}
+          onChange={onChangeHandler}
+          name='email' 
+          required/>
+             {errors && <p className='fs-6' style={{color:"red"}}>{errors.email}</p>}
     </div>
-    <div className="form-group was-validated mt-3 mb-2">
-        <label className="form-label fs-6" for="password">Password</label>
-        <input className="form-control" type="password" id="password" required placeholder='Enter your password...' />
-        <div className="invalid-feedback">
-            Please enter your password
-        </div>
+    <div className="form-group was-validated  mt-3 mb-2">
+        <label className="form-label fs-6" >Password</label>
+        <input className="form-control" 
+        type="password" 
+        id="password"
+    name='password'
+
+
+    onChange={onChangeHandler}
+    placeholder='Enter your email...'   style={{borderColor:'black',backgroundImage:'none',paddingRight:0}}
+    
+    />
+           {errors && <p className='fs-6' style={{color:"red"}}>{errors.password}</p>}
     </div>
     <div className="form-group ">
         <span className='float-end fs-6'>Forgot password</span>
     </div>
-   <Link to='/login'>
-<input className="btn btn-primary w-100 mt-4  " type="submit" value="Log in" />   </Link> 
+  
+<input className="btn btn-primary w-100 mt-4  " type="submit" value="Log in" /> 
      <p className='text-center fs-6 mt-3'>Don't have an account? <Link className='fw-bolder' to='/signup'>Sign up</Link></p>
 </form>
 

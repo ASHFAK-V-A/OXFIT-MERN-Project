@@ -57,9 +57,9 @@ try {
   <div className="form-group ">
         <label className="form-label fs-6" for="email">User name</label>
         <input className="form-control" 
-        type="email"
-         id="email" 
-         onChange={onChangeHandler}
+        type="name"
+         id="name" 
+         onChange={onChangeHandler} 
          value={signupform.name}
          name="name"
           autoFocus 
