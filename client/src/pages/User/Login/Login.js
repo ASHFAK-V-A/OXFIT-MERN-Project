@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import './Login.css'
 import axios from '../../../axios/axiosInstance'
+
 function Login() {
 
   const [errors,setErrors] = useState({});  
@@ -19,7 +20,12 @@ try {
       email:loginForm.email,
       password:loginForm.password
    }).then((response)=>{
-    console.log(response);
+    const { data } = response;
+    let isUser=data.data.token
+      if(isUser){
+    console.log('user here');
+    }
+
    }).catch(error=>{
     console.log(error.message);
     setErrors(error.response.data);

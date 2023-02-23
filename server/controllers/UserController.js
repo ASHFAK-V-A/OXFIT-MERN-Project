@@ -3,6 +3,7 @@ import validateRegisterInput from '../validations/register.js';
 import validateLoginInput from '../validations/login.js';
 import bcrypt from 'bcrypt'
 import User from '../models/Users.js';
+import generateToken from '../utils/jwt.js';
 
 
 
@@ -21,13 +22,17 @@ export const Signup=async(req,res)=>{
    if(user){
     return res.status(400).json({email:"Email already exists"})
      }
+     
+     console.log(password);
 const hashPasw=await bcrypt.hash(password,10)
 
 
 const newUser = new User({
+
     name,
     email,
     password:hashPasw
+
 })
 
 const savedUser= await newUser.save()
@@ -38,11 +43,13 @@ return res.json(savedUser)
 }
 
 export const Login=(async(req,res)=>{
+    let token
     const { errors, isValid } = validateLoginInput(req.body);
     const {email,password}=req.body
     if(!isValid) { 
         return res.status(400).json(errors);
     } 
+
 
     try {
 
@@ -52,15 +59,29 @@ export const Login=(async(req,res)=>{
         return res.status(404).json(errors);
     }
 
-    bcrypt.compare(password,password).then((isMatch)=>{
-        if(!isMatch){
+    bcrypt.compare(password,user.password).then((isMatch)=>{
+        if(isMatch){
+            const payload={
+                id:user.id,
+            }
+
+            token=generateToken(payload)
+        user={...user._doc,token}
+res.json({
+    errorCode:0,
+    msg:"User login successfull",
+    status:true,
+    data:user
+})
+        }else{
             errors.password = 'Invalid Password'
             return res.status(404).json(errors);
         }
     })   
-      
-    errors.password = 'Login Sucessfully'
-    return res.status(404).json(errors);
+
+
+
+
  })
     } catch (error) {
         console.log(error.message);
