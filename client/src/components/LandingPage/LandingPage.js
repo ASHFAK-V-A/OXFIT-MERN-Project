@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import './SideBar.css';
+import About from '../../pages/User/Abouts/About';
+import Footer from '../Footer/Footer';
+import './LandingPage.css'
 
 function SideBar() {
   useEffect(() => {
@@ -39,14 +41,19 @@ function SideBar() {
   }, []);
 
   return (
-    <>   
+    <>  
+
+  
+
       <body className='sidebar-body' id="body-pd">
-      <header class="header" id="header">
-            <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-            <div class="header_img"> <img src="https://th.bing.com/th/id/OIP.xo-BCC1ZKFpLL65D93eHcgHaGe?pid=ImgDet&rs=1" alt=""/> </div>
-        </header>
+         <header className="header " id="header">
+            <div className="header_toggle"> <i className='bx bx-menu' id="header-toggle"></i> </div>
+            <div className="header_img"> <img src="https://th.bing.com/th/id/OIP.xo-BCC1ZKFpLL65D93eHcgHaGe?pid=ImgDet&rs=1" alt=""/> </div>
+        </header> 
+    <div className="main-body">
+
         <div className="l-navbar" id="nav-bar">
-          <nav className="nav">
+          <nav className="nav"> 
             <div>
               <a href="#" className="nav_logo">
                 <i className="bx bx-dumbbell nav_logo-icon"></i>{' '}
@@ -55,7 +62,7 @@ function SideBar() {
               <div className="nav_list">
                 <a href="#" className="nav_link active">
                   <i className="bx bx-home nav_icon"></i>{' '}
-                  <span className="nav_name">Dashboard</span>
+                  <span className="nav_name">Home</span>
                 </a>
                 <a href="#" className="nav_link">
                   <i className="bx bx-detail nav_icon"></i>{' '}
@@ -88,10 +95,16 @@ function SideBar() {
               <span className="nav_name">Logout</span>
             </a>
           </nav>
+
           </div>
+        
+
+    </div>
+
           </body>
+
+
         </>
-    
 )
 }
 export default SideBar
