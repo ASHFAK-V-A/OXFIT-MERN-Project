@@ -2,8 +2,16 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import './Login.css'
 import axios from '../../../axios/axiosInstance'
-
+import { useSelector,useDispatch } from 'react-redux'
+import { setToken } from '../../../redux/Token/auth'
 function Login() {
+
+
+  const token=useSelector((state)=> state.token)
+  console.log(token);
+
+const dispatch =useDispatch()
+
 
   const [errors,setErrors] = useState({});  
 
@@ -11,6 +19,7 @@ const [loginForm,setLoginForm]=useState({
   email:"",
   password:""
 })
+
 
 const submitHandler=async(e)=>{
 e.preventDefault()
@@ -22,9 +31,7 @@ try {
    }).then((response)=>{
     const { data } = response;
     let isUser=data.data.token
-      if(isUser){
-    console.log('user here');
-    }
+ dispatch(setToken(isUser))
 
    }).catch(error=>{
     console.log(error.message);

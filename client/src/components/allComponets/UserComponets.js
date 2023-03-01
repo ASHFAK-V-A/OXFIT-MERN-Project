@@ -1,6 +1,7 @@
 import { BrowserRouter,Routes, Route} from 'react-router-dom'
 import Login from '../../pages/User/Login/Login'
 import Signup from '../../pages/User/Signup/Signup'
+import SideBar from '../Sidebar/SideBar'
 import React from 'react'
 
 function UserComponets() {
@@ -8,6 +9,7 @@ function UserComponets() {
     <div>
     <BrowserRouter>
 <Routes>
+<Route exact  path="/"  element={<SideBar/>}></Route>
  <Route exact  path="/login"  element={<Login/>}></Route>
  <Route  path="/signup"  element={<Signup/>}></Route>
  
