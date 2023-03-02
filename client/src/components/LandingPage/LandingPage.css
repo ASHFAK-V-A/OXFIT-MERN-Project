@@ -181,7 +181,7 @@ a {
     }
 
     .body-pd {
-        padding-left: calc(var(--nav-width) + 157px)
+        padding-left: calc(var(--nav-width) + 160px)
     }
 }
 .main-body{
