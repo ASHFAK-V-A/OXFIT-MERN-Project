@@ -6,7 +6,7 @@ import isEmpty  from './isEmpty.js';
     let errors = {};
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
-
+   data.msg=''
 
     if(!Validator.isEmail(data.email)) {
         errors.email = 'Email is invalid';

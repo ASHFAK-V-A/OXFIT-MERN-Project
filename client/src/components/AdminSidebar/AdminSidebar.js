@@ -61,7 +61,7 @@ useEffect(()=>{
         <div className="l-navbar" id="nav-bar">
           <nav className="nav"> 
             <div>
-              <Link href="#" className="nav_logo">
+              <Link  className="nav_logo">
                 <i className="bx bx-dumbbell nav_logo-icons"></i>{' '}
                 <span className="nav_logo-names">OXFIT-Admin Panel</span>
               </Link>
@@ -74,14 +74,18 @@ useEffect(()=>{
             
 
          
-                <a href="#" className="nav_link">
+                <Link to='/members' href="#" className="nav_link">
                   <i className="bx bxs-group nav_icon"></i>{' '}
                   <span className="nav_name">Members Managment</span>
-                </a>
+                </Link>
                 <a href="#" className="nav_link">
-                  <i className="bx bxs-group nav_icon" ></i>{' '}
+                  <i className="bx bx-run nav_icon" ></i>{' '}
                   <span className="nav_name">Staff Managment</span>
                 </a>
+                <Link to ='/users' className="nav_link">
+                  <i className="bx bx-group nav_icon" ></i>{' '}
+                  <span className="nav_name">Vistor's Managment</span>
+                </Link>
               
                 <a href="#" className="nav_link">
                   <i className="bx bxs-receipt nav_icon"></i>{' '}
