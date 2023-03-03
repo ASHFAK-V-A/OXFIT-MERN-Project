@@ -3,9 +3,9 @@
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
-    --first-color: #EDEFF;
-    --first-color-light: #7a7a7a;
-    --white-color: #0e4295;
+    --first-colors: #EDEFF;
+    --first-color-lights: #7a7a7a;
+    --white-colors: #0e4295;
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
@@ -47,7 +47,7 @@ a {
 }
 
 .header_toggle {
-    color: var(--first-color);
+    color: var(--first-colors);
     font-size: 1.5rem;
     cursor: pointer
 }
@@ -71,7 +71,7 @@ a {
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
-    background-color: var(--first-color);
+    background-color: var(--first-colors);
     padding: .5rem 1rem 0 0;
     transition: .5s;
     z-index: var(--z-fixed);
@@ -87,7 +87,7 @@ a {
 }
 
 .nav_logo,
-.nav_link {
+.nav_links {
     display: grid;
     grid-template-columns: max-content max-content;
     align-items: center;
@@ -101,23 +101,23 @@ a {
 
 .nav_logo-icon {
     font-size: 1.25rem;
-    color: var(--white-color)
+    color: var(--white-colors)
 }
 
 .nav_logo-name {
-    color: var(--white-color);
+    color: var(--white-colors);
     font-weight: 700
 }
 
-.nav_link {
+.nav_links {
     position: relative;
-    color: var(--first-color-light);
+    color: var(--first-color-lights);
     margin-bottom: 1.5rem;
     transition: .3s
 }
 
-.nav_link:hover {
-    color: var(--white-color)
+.nav_links:hover {
+    color: var(--white-colors)
 }
 
 .nav_icon {
@@ -132,18 +132,18 @@ a {
     padding-left: calc(var(--nav-width) + 0rem)
 }
 
-.active {
-    color: var(--white-color);
+.actives {
+    color: var(--white-colors);
     background-color: rgb(237, 247, 255);
 }
 
-.active::before {
+.actives::before {
     content: '';
     position: absolute;
     left: 0;
     width: 2px;
     height: 32px;
-    background-color: var(--white-color)
+    background-color: var(--white-colors)
 }
 
 .height-100 {

@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
-import About from '../../pages/User/Abouts/About';
-import Footer from '../Footer/Footer';
-import './LandingPage.css'
+import { Link } from 'react-router-dom';
+import './SideBar.css'
+
 
 function SideBar() {
+
+
+
   useEffect(() => {
+
+
     
     const showNavbar = (toggleId, navId, bodyId, headerId) => {
       const toggle = document.getElementById(toggleId);
@@ -29,18 +34,23 @@ function SideBar() {
     showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
 
     /*===== LINK ACTIVE =====*/
-    const linkColor = document.querySelectorAll('.nav_link');
+    const linkColor = document.querySelectorAll('.nav_links');
 
     function colorLink() {
       if (linkColor) {
-        linkColor.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
+        linkColor.forEach(l => l.classList.remove('actives'));
+        this.classList.add('actives');
       }
     }
     linkColor.forEach(l => l.addEventListener('click', colorLink));
   }, []);
 
+
+
+
+
   return (
+
     <>  
 
   
@@ -55,42 +65,44 @@ function SideBar() {
         <div className="l-navbar" id="nav-bar">
           <nav className="nav"> 
             <div>
-              <a href="#" className="nav_logo">
+              <Link href="#" className="nav_logo">
                 <i className="bx bx-dumbbell nav_logo-icon"></i>{' '}
                 <span className="nav_logo-name">OXFIT</span>
-              </a>
+              </Link>
               <div className="nav_list">
-                <a href="#" className="nav_link active">
+                <Link to='/' className="nav_links actives">
                   <i className="bx bx-home nav_icon"></i>{' '}
                   <span className="nav_name">Home</span>
-                </a>
-                <a href="#" className="nav_link">
+                </Link>
+                <Link to='/admission' className="nav_links">
                   <i className="bx bx-detail nav_icon"></i>{' '}
-                  <span className="nav_name">Admission</span>
-                </a>
-                <a href="#" className="nav_link">
+               <span className="nav_name" >Admission</span> </Link> 
+
+         
+                <a href="#" className="nav_links">
                   <i className="bx bx-group nav_icon"></i>{' '}
                   <span className="nav_name">Members</span>
                 </a>
-                <a href="#" className="nav_link">
+                <a href="#" className="nav_links">
                   <i className="bx bx-message-square-detail nav_icon"></i>{' '}
                   <span className="nav_name">Messages</span>
                 </a>
            
-                <a href="#" className="nav_link">
+                <a href="#" className="nav_links">
                   <i className="bx bx-bell nav_icon"></i>{' '}
                   <span className="nav_name">Notification</span>
-                </a>  <a href="#" className="nav_link">
+                </a>  <a href="#" className="nav_links">
                   <i className="bx bx-receipt nav_icon"></i>{' '}
                   <span className="nav_name">Payment's</span>
                 </a>
-                <a href="#" className="nav_link">
+                <a href="#" className="nav_links">
                   <i className="bx bx-user nav_icon"></i>{' '}
                   <span className="nav_name">Profile</span>
                 </a>
               </div>
             </div>
-            <a href="#" className="nav_link">
+
+            <a href="#" className="nav_links">
               <i className="bx bx-log-out nav_icon"></i>{' '}
               <span className="nav_name">Logout</span>
             </a>
