@@ -1,15 +1,32 @@
 import React from 'react'
-import AdminSidebar from '../../../components/AdminSidebar/AdminSidebar'
+import { useEffect,useState } from 'react'
+import axios from '../../../axios/axiosInstance'
 
 
-function Member() {
+
+function Member() { 
+ 
+const [allMembers,setAllmembers]=useState([])
+  
+  useEffect(async()=>{
+ 
+    await axios.get('/admin/members').then((memberdata)=>{
+       setAllmembers(memberdata.data.members)
+    })
+
+
+  },[])
+
+
+
+
+  
   return (
-    <div className='d-flex '>
-<AdminSidebar />
-
+    
+    
      
 <div className="container mt-5 " >
-      <h2 className='text-center mt-5 pb-4 text-decoration-underline'>Member's Managment</h2>
+      <h2 className='text-center mt-5 pb-4 text-decoration-underline'>Members Managment</h2>
 
 
       <table class="table mt-5">  
@@ -26,12 +43,16 @@ function Member() {
       <th scope="col">More</th>
     </tr>
   </thead>
-  <tbody>
+
+  {allMembers.map((membe)=>(
+
+    
+    <tbody>
     <tr>
       <th scope="row">1</th>
       <td><img src="https://t4.ftcdn.net/jpg/01/18/03/33/240_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" class="rounded-circle" alt="Profile Image" style={{width:50}} /></td>
-      <td>jhon</td>
-      <td>jhone@gmail.com</td>
+      <td>{membe.name}</td>
+      <td>{membe.email}</td>
 
       <td>45534434</td>
       <td><button className='btn btn-primary'><i className='fa fa-edit'></i></button></td>
@@ -42,12 +63,14 @@ function Member() {
 
   </tbody>
 
+))}
 </table>
     
     </div>    
-    </div>
 
-  )
+
+)
+
 }
 
 export default Member

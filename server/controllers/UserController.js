@@ -2,7 +2,7 @@
 
 import validateLoginInput from '../validations/login.js';
 import bcrypt from 'bcrypt'
-import User from '../models/Users.js';
+import Members from '../models/Members.js';
 import generateToken from '../utils/jwt.js';
 
 
@@ -18,7 +18,7 @@ export const Login=(async(req,res)=>{
 
     try {
 
- User.findOne({email:email}).then((user)=>{
+ Members.findOne({email:email}).then((user)=>{
     if(!user){
         errors.email = 'User not found'
         return res.status(404).json(errors);
@@ -52,4 +52,22 @@ res.json({
         console.log(error.message);
     }
     
+})
+
+export const admission =((req,res)=>{
+
+try {
+
+    const {name,age,Bloodgrp,gender,address,phonenumber,pincode,city,Dob}=req.body
+
+    Members.updateOne({
+        
+    })
+  
+
+    
+} catch (error) {
+    console.log(error.message);
+}
+
 })

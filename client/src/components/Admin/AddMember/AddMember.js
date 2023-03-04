@@ -1,22 +1,14 @@
-import React, { useEffect } from 'react'
-import AdminSidebar from '../../../components/AdminSidebar/AdminSidebar'
-import { useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
+
 import { useState } from 'react'
 import axios from '../../../axios/axiosInstance'
 import { Link } from 'react-router-dom'
 import './AddMember.css'
+import { useNavigate } from 'react-router'
+
 function AddMember() {
 
-const navigate=useNavigate()
-    const token=useSelector((state)=> state.token.token)
 
-   useEffect(()=>{
-  if(token==null){
-    navigate('/admin')
-  }
-    },[])
-
+  const navigate=useNavigate()
 
 const [errors,setErrors] = useState({});
 
@@ -26,7 +18,7 @@ const [signupform,setSignUpForm]=useState({
   password:"",
   password_confirm:""
 })
-
+     
 const onChangeHandler =(e)=>{
   const {name,value}=e.target
   setSignUpForm({...signupform,[name]: value})
@@ -59,14 +51,13 @@ const onChangeHandler =(e)=>{
  
 
   return (
-    <div className='d-flex'>
-        <AdminSidebar />
-
+   
+       
               <div className="container pt-5 bg-light">
               <div className="signup-page">
   < div className='body'>
   <div className="signup">
-  <h1 className="text-center">Add Memnber</h1>
+  <h1 className="text-center">Add Member</h1>
   <form onSubmit={submitHandler}>
   <div className="form-group ">
         <label className="form-label fs-6" for="email">User name</label>
@@ -121,7 +112,7 @@ const onChangeHandler =(e)=>{
     </div>
  
     <input className="btn btn-primary w-100 " type="submit" value="REGISTER" />
-    <p className='text-center fs-6 mt-3'>Already have an account? <Link className='fw-bolder' to='/login'>Login</Link></p>
+ 
 </form>
 </div>
 </div>
@@ -129,7 +120,7 @@ const onChangeHandler =(e)=>{
 
 
               </div>
-    </div>
+   
   )
 }
 

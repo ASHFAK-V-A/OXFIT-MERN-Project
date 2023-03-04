@@ -1,14 +1,18 @@
-import React,{useState} from 'react'
+import React,{useState,} from 'react'
 import './Login.css'
 import axios from '../../../axios/axiosInstance'
-import { useSelector,useDispatch } from 'react-redux'
-import { setToken } from '../../../redux/Token/auth'
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router'
+import { setToken } from '../../../redux/Token/auth';
+
+
 function Login() {
 
+  const token = useSelector((state) => state.token.token);
+  console.log(token);
+  const dispatch = useDispatch();
   const navigate = useNavigate()
-
-const dispatch =useDispatch()
 
 
   const [errors,setErrors] = useState({});  
@@ -17,7 +21,6 @@ const [loginForm,setLoginForm]=useState({
   email:"",
   password:""
 })
-
 
 const submitHandler=async(e)=>{
 e.preventDefault()
@@ -29,8 +32,8 @@ try {
    }).then((response)=>{
     const { data } = response;
     let isUser=data.data.token
-  dispatch(setToken(isUser))
-  navigate('/')
+     dispatch(setToken(isUser));
+     navigate('/')
    }).catch(error=>{
     console.log(error.message);
     setErrors(error.response.data);

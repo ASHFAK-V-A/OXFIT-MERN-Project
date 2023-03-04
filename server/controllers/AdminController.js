@@ -3,8 +3,10 @@
 import generateToken from '../utils/jwt.js';
 import validateLoginInput from '../validations/login.js';
 import validateRegisterInput from '../validations/register.js';
-import User from '../models/Users.js';
+import MembersSchema from '../models/Members.js';
 import bcrypt from 'bcrypt'
+
+
 export const adminLogin =(req,res)=>{
     try {
         let token
@@ -43,10 +45,6 @@ if(!isValid){
 }
 
 
-
-
-
-
 export const AddMember=async(req,res)=>{
     try { 
         const { errors, isValid } = validateRegisterInput(req.body);
@@ -56,7 +54,7 @@ export const AddMember=async(req,res)=>{
             return res.status(400).json(errors);
         }
 
-     const user= await User.findOne({email:email})
+     const user= await MembersSchema.findOne({email:email})
 
    if(user){
     return res.status(400).json({email:"Email already exists"})
@@ -66,7 +64,7 @@ export const AddMember=async(req,res)=>{
 const hashPasw=await bcrypt.hash(password,10)
 
 
-const newUser = new User({
+const newUser = new MembersSchema({
 
     name,
     email,
@@ -79,4 +77,17 @@ return res.json(savedUser)
     } catch (error) { 
         console.log(error.message);
     }
+}
+
+
+export const members =(req,res)=>{
+ 
+    MembersSchema.find().then((allmembers)=>{
+        res.json({
+            status:true,
+            members:allmembers
+         })
+
+    })
+ 
 }

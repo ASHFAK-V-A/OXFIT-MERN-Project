@@ -1,16 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import { useSelector,useDispatch } from 'react-redux'
-import { setToken } from '../../../redux/Token/auth'
+
 import axios from '../../../axios/axiosInstance'
 import { useNavigate } from "react-router-dom";
 
 function  AdminLogin() {
   
 
-  const dispatch =useDispatch()
-  const token=useSelector((state)=> state.token)
-  console.log('heres',token);
 
   const navigate = useNavigate()
 const initialState={email:'',password:''}
@@ -25,10 +21,9 @@ const initialState={email:'',password:''}
        email:loginForm.email,
        password:loginForm.password
       }).then((response)=>{
-        const { data } = response;
-        const isAdmin=data.data
-        dispatch(setToken(isAdmin))
-navigate('/dashboard')
+        const JWTTOKEN=response.data.data
+        localStorage.setItem("membertoken", JWTTOKEN);
+        navigate('/dashboard')
             }).catch(error=>{
           console.log(error);
        setErrors(error.response.data)

@@ -3,7 +3,8 @@ import Login from '../../pages/User/Login/Login'
 
 import React from 'react'
 import Home from '../../pages/User/Home/Home'
-import AdmissionForm from '../../pages/User/AdmissionForm/AdmissionForm'
+import AdmissionPage from '../../pages/User/AdmssionPage/AdmssionPage'
+
 
 
 function UserComponets() {
@@ -18,7 +19,7 @@ function UserComponets() {
 
 <Route path='/login' element={<Login/>} />
  
- <Route path='/admission' element={<AdmissionForm/>} />
+ <Route path='/admission' element={<AdmissionPage/>} />
 
 
 </Routes>
