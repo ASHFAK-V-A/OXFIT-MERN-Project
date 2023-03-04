@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter,Routes, Route} from 'react-router-dom'
 import AdminDashboard from '../../pages/Admin/Dashboard/AdminDashboard'
-import Member from '../../pages/Admin/Members/Member'
-import Vistors from '../../pages/Admin/Vistors/Vistors'
+import Members from '../../pages/Admin/Members/Member'
+import AddMember from '../../pages/Admin/AddMember/AddMember'
 import AdminLogin from '../../pages/Admin/Login/Login'
 
 function AdminComponents() {
@@ -14,10 +14,12 @@ function AdminComponents() {
         
  <Route extact  path="/admin"  element={<AdminLogin/>}></Route>
 
-<Route path='/adminhome' element={<AdminDashboard />} />
- <Route   path="/members"  element={<Member/>}></Route>
+<Route path='/dashboard' element={<AdminDashboard />} />
 
-<Route path='/users' element={<Vistors/>} />
+ <Route   path="/addmember"  element={<AddMember/>}></Route>
+
+<Route path='/members' element={<Members />}></Route>
+
       </Routes>
       
       </BrowserRouter>

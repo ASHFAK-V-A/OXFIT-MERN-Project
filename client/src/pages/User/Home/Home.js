@@ -2,7 +2,22 @@ import React from 'react'
 import './Home.css'
 import Footer from '../../../components/Footer/Footer'
 import SideBar from '../../../components/UserSidebar/SideBar'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+
 function Home() {
+  const navigate = useNavigate()
+  const token=useSelector((state)=> state.token.token)
+
+  useEffect(()=>{
+ 
+ if(token==null){
+ navigate('/login')
+  }
+
+  },[])
+
   return (
 <>
 

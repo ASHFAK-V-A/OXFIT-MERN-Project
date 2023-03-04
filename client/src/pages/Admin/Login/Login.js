@@ -28,7 +28,7 @@ const initialState={email:'',password:''}
         const { data } = response;
         const isAdmin=data.data
         dispatch(setToken(isAdmin))
-navigate('/adminhome')
+navigate('/dashboard')
             }).catch(error=>{
           console.log(error);
        setErrors(error.response.data)

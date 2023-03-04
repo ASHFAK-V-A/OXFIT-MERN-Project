@@ -1,14 +1,12 @@
 import React,{useState} from 'react'
-import { Link } from 'react-router-dom'
 import './Login.css'
 import axios from '../../../axios/axiosInstance'
 import { useSelector,useDispatch } from 'react-redux'
 import { setToken } from '../../../redux/Token/auth'
+import { useNavigate } from 'react-router'
 function Login() {
 
-
-  const token=useSelector((state)=> state.token)
-  console.log(token);
+  const navigate = useNavigate()
 
 const dispatch =useDispatch()
 
@@ -31,8 +29,8 @@ try {
    }).then((response)=>{
     const { data } = response;
     let isUser=data.data.token
- dispatch(setToken(isUser))
-
+  dispatch(setToken(isUser))
+  navigate('/')
    }).catch(error=>{
     console.log(error.message);
     setErrors(error.response.data);
@@ -93,7 +91,7 @@ console.log(loginForm);
     </div>
   
 <input className="btn btn-primary w-100 mt-4  " type="submit" value="Log in" /> 
-     <p className='text-center fs-6 mt-3'>Don't have an account? <Link className='fw-bolder' to='/signup'>Sign up</Link></p>
+   
 </form>
 
 

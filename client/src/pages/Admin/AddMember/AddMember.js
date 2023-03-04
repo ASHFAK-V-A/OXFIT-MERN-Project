@@ -1,12 +1,23 @@
-import React ,{useState}from 'react'
-import  './Signup.css'
+import React, { useEffect } from 'react'
+import AdminSidebar from '../../../components/AdminSidebar/AdminSidebar'
+import { useNavigate } from 'react-router'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import axios from '../../../axios/axiosInstance'
 import { Link } from 'react-router-dom'
-import axios from '../../../axios/axiosInstance.js'
-import { useNavigate } from 'react-router';
+import './AddMember.css'
+function AddMember() {
+
+const navigate=useNavigate()
+    const token=useSelector((state)=> state.token.token)
+
+   useEffect(()=>{
+  if(token==null){
+    navigate('/admin')
+  }
+    },[])
 
 
- 
-function Signup() {
 const [errors,setErrors] = useState({});
 
 const [signupform,setSignUpForm]=useState({
@@ -16,43 +27,46 @@ const [signupform,setSignUpForm]=useState({
   password_confirm:""
 })
 
-
-const navigate=useNavigate()
-
-
 const onChangeHandler =(e)=>{
-const {name,value}=e.target
-setSignUpForm({...signupform,[name]: value})
-}
-
-const submitHandler=async(e)=>{
-  e.preventDefault()
-try {
-  await axios.post('/signup',{
-    email:signupform.email,
-    name:signupform.name,
-    password:signupform.password,
-    password_confirm:signupform.password_confirm
-  }).then((response)=>{
-    console.log(response.data);
-    navigate('/login')
-  }).catch((error)=>{
-    console.log(error);
-    setErrors(error.response.data);
-    
-  })
+  const {name,value}=e.target
+  setSignUpForm({...signupform,[name]: value})
+  }
   
-} catch (error) {
-  console.log(error.message);
-}
-
-}  
+  const submitHandler=async(e)=>{
+    e.preventDefault()
+  try {
+    await axios.post('/admin/addmember',{
+      email:signupform.email,
+      name:signupform.name,
+      password:signupform.password,
+      password_confirm:signupform.password_confirm
+    }).then((response)=>{
+      console.log(response.data);
+      navigate('/admin')
+    }).catch((error)=>{
+      console.log(error);
+      setErrors(error.response.data);
+      
+    })
+    
+  } catch (error) {
+    console.log(error.message);
+  }
+  
+  }  
+   
+    
  
+
   return (
-<div className="signup-page">
+    <div className='d-flex'>
+        <AdminSidebar />
+
+              <div className="container pt-5 bg-light">
+              <div className="signup-page">
   < div className='body'>
   <div className="signup">
-  <h1 className="text-center">Sign up</h1>
+  <h1 className="text-center">Add Memnber</h1>
   <form onSubmit={submitHandler}>
   <div className="form-group ">
         <label className="form-label fs-6" for="email">User name</label>
@@ -112,7 +126,11 @@ try {
 </div>
 </div>
 </div>
+
+
+              </div>
+    </div>
   )
 }
 
-export default Signup
+export default AddMember

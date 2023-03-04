@@ -67,7 +67,7 @@ useEffect(()=>{
               </Link>
        
               <div className="nav_lists">
-                <Link  className="nav_link active">
+                <Link to='/dashboard'  className="nav_link active">
                   <i className="bx bxs-home nav_icon"></i>{' '}
                   <span className="nav_name">Home</span>
                 </Link>
@@ -82,9 +82,9 @@ useEffect(()=>{
                   <i className="bx bx-run nav_icon" ></i>{' '}
                   <span className="nav_name">Staff Managment</span>
                 </a>
-                <Link to ='/users' className="nav_link">
-                  <i className="bx bx-group nav_icon" ></i>{' '}
-                  <span className="nav_name">Vistor's Managment</span>
+                <Link to ='/addmember' className="nav_link">
+                  <i className="bx bxs-user-plus nav_icon" ></i>{' '}
+                  <span className="nav_name">Add Member</span>
                 </Link>
               
                 <a href="#" className="nav_link">
