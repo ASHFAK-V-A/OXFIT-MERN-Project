@@ -1,11 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from '../../../axios/axiosInstance'
-
+import { useSelector } from 'react-redux'
 import './AdmissionForm.css'
 
 function AdmissionForm() {
-
+  const token=useSelector((state)=> state.token.token)
+console.log(token);
 
 const initialState={
 name:'',
@@ -16,7 +17,8 @@ address:'',
 phonenumber:'',
 pincode:'',
 city:'',
-Dob:''
+Dob:'',
+
 }
  const [admissionForm,setAdmissionForm]=useState(initialState) 
 
@@ -36,26 +38,27 @@ const onGenderChange = (e) => {
  const  onSubmitHandler= async (e)=>{
   e.preventDefault()
 
+  await axios.post('/admission', {
+    name: admissionForm.name,
+    age: admissionForm.age,
+    Bloodgrp: admissionForm.bloodgrp,
+    gender: admissionForm.gender,
+    address: admissionForm.address,
+    phonenumber: admissionForm.phonenumber,
+    pincode: admissionForm.pincode,
+    city: admissionForm.city,
+    Dob: admissionForm.Dob
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then((response) => {
+    console.log(response.data);
+  });
 
-  await axios.post('/admission',{
-
-    name:admissionForm.name,
-    age:admissionForm.age,
-    Bloodgrp:admissionForm.bloodgrp,
-    gender:admissionForm.gender,
-    address:admissionForm.address,
-    phonenumber:admissionForm.phonenumber,
-    pincode:admissionForm.pincode,
-    city:admissionForm.city,
-    Dob:admissionForm.Dob
-
-     }).then((response)=>{
-
-       console.log(response.data);
-
-     })
-    
-
+  
+  
+  
 
 }
 

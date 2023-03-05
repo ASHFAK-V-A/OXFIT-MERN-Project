@@ -60,12 +60,7 @@ try {
 
     const {name,age,Bloodgrp,gender,address,phonenumber,pincode,city,Dob}=req.body
 
-    Members.updateOne({
-        
-    })
-  
-
-    
+    console.log(name);
 } catch (error) {
     console.log(error.message);
 }
