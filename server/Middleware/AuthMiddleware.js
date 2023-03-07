@@ -14,7 +14,7 @@ if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
 
          req.user =  await Members.findById(decode.id)
 
-          console.log("current member",req.user);
+
            
             next();
 

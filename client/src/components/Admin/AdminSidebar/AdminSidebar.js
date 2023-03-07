@@ -77,27 +77,27 @@ useEffect(()=>{
             
 
          
-                <Link to='/members' href="#" className="nav_link">
+                <Link to='/members'  className="nav_link">
                   <i className="bx bxs-group nav_icon"></i>{' '}
                   <span className="nav_name">Members Managment</span>
                 </Link>
-                <a href="#" className="nav_link">
+                <Link  className="nav_link">
                   <i className="bx bx-run nav_icon" ></i>{' '}
                   <span className="nav_name">Staff Managment</span>
-                </a>
+                </Link>
                 <Link to ='/addmember' className="nav_link">
                   <i className="bx bxs-user-plus nav_icon" ></i>{' '}
                   <span className="nav_name">Add Member</span>
                 </Link>
               
-                <a href="#" className="nav_link">
+                <Link href="#" className="nav_link">
                   <i className="bx bxs-receipt nav_icon"></i>{' '}
                   <span className="nav_name">Payment's</span>
-                </a>
-                <a href="#" className="nav_link">
+                </Link>
+                <Link href="#" className="nav_link">
                   <i className="bx bxs-bell nav_icon"></i>{' '}
                   <span className="nav_name">Notification</span>
-                </a>  
+                </Link>  
           
               </div>
             </div>

@@ -1,17 +1,13 @@
 import React,{useState,} from 'react'
 import './Login.css'
 import axios from '../../../axios/axiosInstance'
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router'
-import { setToken } from '../../../redux/Token/auth';
+
 
 
 function Login() {
 
-  const token = useSelector((state) => state.token.token);
-  console.log(token);
-  const dispatch = useDispatch();
+
   const navigate = useNavigate()
 
 
@@ -32,7 +28,9 @@ try {
    }).then((response)=>{
     const { data } = response;
     let isUser=data.data.token
-     dispatch(setToken(isUser));
+    const member = response.data.name
+    sessionStorage.setItem('member',member);
+    sessionStorage.setItem('token',isUser);
      navigate('/')
    }).catch(error=>{
     console.log(error.message);

@@ -3,6 +3,7 @@
 import generateToken from '../utils/jwt.js';
 import validateLoginInput from '../validations/login.js';
 import validateRegisterInput from '../validations/register.js';
+
 import MembersSchema from '../models/Members.js';
 import bcrypt from 'bcrypt'
 
@@ -68,10 +69,11 @@ const newUser = new MembersSchema({
 
     name,
     email,
-    password:hashPasw
+    password:hashPasw,
+    isApplication: false
 
 })
-
+console.log(newUser);
 const savedUser= await newUser.save()
 return res.json(savedUser)
     } catch (error) { 
@@ -81,7 +83,7 @@ return res.json(savedUser)
 
 
 export const members =(req,res)=>{
- 
+
     MembersSchema.find().then((allmembers)=>{
         res.json({
             status:true,

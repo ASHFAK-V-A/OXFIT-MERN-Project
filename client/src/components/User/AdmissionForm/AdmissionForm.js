@@ -1,25 +1,46 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import { useState } from 'react'
 import axios from '../../../axios/axiosInstance'
-import { useSelector } from 'react-redux'
+import {useNavigate } from 'react-router'
 import './AdmissionForm.css'
+import {message} from 'antd'
+
 
 function AdmissionForm() {
-  const token=useSelector((state)=> state.token.token)
-console.log(token);
 
-const initialState={
-name:'',
-age:'',
-bloodgrp:'',
-gender:'',
-address:'',
-phonenumber:'',
-pincode:'',
-city:'',
-Dob:'',
 
-}
+  const [errors,setErrors] = useState({});  
+const [age,setAge]=useState()
+const navigate = useNavigate()
+
+
+const token = sessionStorage.getItem('token') 
+
+const member = sessionStorage.getItem('member')
+
+useEffect(()=>{
+
+ if(!token){
+navigate('/login')
+   
+ }
+
+})
+
+
+ const initialState={
+
+ age:'',
+ bloodgrp:'',
+ gender:'',
+ address:'',
+ phonenumber:'',
+ pincode:'',
+ city:'',
+ Dob:'',
+ state:''
+ }
+ 
  const [admissionForm,setAdmissionForm]=useState(initialState) 
 
 
@@ -39,26 +60,35 @@ const onGenderChange = (e) => {
   e.preventDefault()
 
   await axios.post('/admission', {
-    name: admissionForm.name,
     age: admissionForm.age,
     Bloodgrp: admissionForm.bloodgrp,
     gender: admissionForm.gender,
     address: admissionForm.address,
     phonenumber: admissionForm.phonenumber,
     pincode: admissionForm.pincode,
+    state:admissionForm.state,
     city: admissionForm.city,
-    Dob: admissionForm.Dob
-  }, {
+    Dob: admissionForm.Dob,
+    token:token
+
+  }, 
+  {
     headers: {
       Authorization: `Bearer ${token}`
     }
-  }).then((response) => {
-    console.log(response.data);
-  });
 
-  
-  
-  
+  }).then((response) => {
+    message.error('Already Have Applicatioin')
+const notAllo=response.data.notallowed
+setAge(notAllo)
+
+console.log(notAllo);
+
+  }).catch(error=>{
+    
+    console.log(error.message);
+    setErrors(error.response.data);
+   })
 
 }
 
@@ -86,10 +116,10 @@ console.log(admissionForm);
                         <input type="text" id="form6Example1"
                          className="form-control" 
                          name='name'
-                         onChange={onchangeHandler}
-                         value={admissionForm.name}
-                         
-                         placeholder='Enter Name...' />
+                         value={member}
+                         readOnly='true'
+                          style={{backgroundColor:'#e6e6e6'}}
+                  />
                     </div>
                       </div>
                    
@@ -102,7 +132,9 @@ console.log(admissionForm);
                           name='phonenumber'
                           onChange={onchangeHandler}
                           value={admissionForm.phonenumber}
-placeholder='Enter phone number...'/>
+                      
+                         placeholder='Enter phone number'/>
+                                  {errors && <p className='fs-6' style={{color:"red"}}>{errors.phonenumber}</p>}
                     </div>
                       </div>
                   </div>
@@ -111,13 +143,21 @@ placeholder='Enter phone number...'/>
 
 <div className="form-outline">
 <label className="form-label" >Boold Group</label>
-  <input type="text" 
-  id="form6Example1"
-   className="form-control" 
-   name='bloodgrp'
-   onChange={onchangeHandler}
-   value={admissionForm.bloodgrp}
-placeholder='Blood group...'/>
+<div>
+  <select name='bloodgrp'  className="w-100 p-1" required onChange={onchangeHandler}>
+  <option value="" disabled selected>Select</option>
+  <option value="A+">A+</option>
+  <option value="B+">A-</option>
+  <option value="B+">B+</option>
+  <option value="B-">B-</option>
+  <option value="O+">O+</option>
+  <option value="O-">O-</option>
+  <option value="AB+">AB+</option>
+  <option value="AB-">AB-</option>
+  </select>
+</div>
+
+
 
 </div>
 </div>
@@ -131,8 +171,9 @@ placeholder='Blood group...'/>
   name='age'
   onChange={onchangeHandler}
   value={admissionForm.age}
-placeholder='Enter age..' />
-
+  required
+placeholder='Enter age' />
+        {age && <p className='fs-6' style={{color:"red"}}>{age}</p>}
 </div>
 </div>
 <div className="col-8 col-md-4 mb-4">
@@ -144,6 +185,7 @@ id="form6Example1"
 name='Dob'
 onChange={onchangeHandler}
 value={admissionForm.Dob}
+required
  className="form-control" />
 
 </div>
@@ -170,6 +212,7 @@ Male
   value='female'
 checked={admissionForm.gender === "female"} 
 onChange={onGenderChange}
+
      />
   <label className="form-check-label" >
 Female
@@ -182,12 +225,27 @@ Female
                     name='address'
                     onChange={onchangeHandler}
                     value={admissionForm.address}
-placeholder='Enter Address...' />
+                    required
+placeholder='Enter Address' />
        
                   </div>
 
 
                   <div className="row">
+                  <div className="col-12 col-md-4 mb-4">
+                      <div className="form-outline">
+                      <label className="form-label" >State</label>
+                        <input type="text" 
+                        id="form6Example1" 
+                        className="form-control" 
+                        name='state'
+                        onChange={onchangeHandler}
+                        value={admissionForm.state}
+                        required
+placeholder='Enter state' />
+                  
+                      </div>
+                    </div>
           
                       <div className="col-12 col-md-4 mb-4">
                       <div className="form-outline">
@@ -198,6 +256,7 @@ placeholder='Enter Address...' />
                         name='city'
                         onChange={onchangeHandler}
                         value={admissionForm.city}
+                        required
 placeholder='Enter city' />
                   
                       </div>
@@ -211,7 +270,8 @@ placeholder='Enter city' />
                         name='pincode'
                         onChange={onchangeHandler}
                         value={admissionForm.pincode}
-placeholder='Enter pin code...' />
+                        required
+placeholder='Enter pin code' />
                   
                       </div>
                     </div>

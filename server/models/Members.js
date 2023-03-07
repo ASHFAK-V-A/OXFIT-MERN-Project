@@ -5,7 +5,7 @@ const MembersSchema= mongoose.Schema({
 
 name:{
     type:String,
-    required:true
+
 },
 email:{
 type:String,
@@ -45,8 +45,10 @@ DOB:{
 gender:{
     type:String
 },
-
-
+isApplication: { 
+    type: Boolean,
+     default: false 
+    }
 
 })
 

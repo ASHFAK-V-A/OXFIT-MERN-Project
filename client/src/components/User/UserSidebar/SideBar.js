@@ -65,7 +65,7 @@ function SideBar() {
         <div className="l-navbar" id="nav-bar">
           <nav className="nav"> 
             <div>
-              <Link href="#" className="nav_logo">
+              <Link  className="nav_logo">
                 <i className="bx bx-dumbbell nav_logo-icon"></i>{' '}
                 <span className="nav_logo-name">OXFIT</span>
               </Link>
@@ -79,33 +79,33 @@ function SideBar() {
                <span className="nav_name" >Admission</span> </Link> 
 
          
-                <a href="#" className="nav_links">
+                <Link className="nav_links">
                   <i className="bx bx-group nav_icon"></i>{' '}
                   <span className="nav_name">Members</span>
-                </a>
-                <a href="#" className="nav_links">
+                </Link>
+                <Link  className="nav_links">
                   <i className="bx bx-message-square-detail nav_icon"></i>{' '}
                   <span className="nav_name">Messages</span>
-                </a>
+                </Link>
            
-                <a href="#" className="nav_links">
+                <Link  className="nav_links">
                   <i className="bx bx-bell nav_icon"></i>{' '}
                   <span className="nav_name">Notification</span>
-                </a>  <a href="#" className="nav_links">
+                </Link>  <Link className="nav_links">
                   <i className="bx bx-receipt nav_icon"></i>{' '}
                   <span className="nav_name">Payment's</span>
-                </a>
-                <a href="#" className="nav_links">
+                </Link>
+                <Link  className="nav_links">
                   <i className="bx bx-user nav_icon"></i>{' '}
                   <span className="nav_name">Profile</span>
-                </a>
+                </Link>
               </div>
             </div>
 
-            <a href="#" className="nav_links">
+            <Link  className="nav_links">
               <i className="bx bx-log-out nav_icon"></i>{' '}
               <span className="nav_name">Logout</span>
-            </a>
+            </Link>
           </nav>
 
           </div>

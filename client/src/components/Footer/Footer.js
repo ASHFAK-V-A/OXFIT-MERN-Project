@@ -39,6 +39,7 @@ function Footer() {
 </div>
 
 
+
 <div className=" col-sm-4 col-md  col-6 col">
 <h5 className="headin5_amrc col_white_amrc pt2">Quick links</h5>
 
@@ -75,5 +76,6 @@ function Footer() {
 </div>
 
   )
+  
 }
 export default Footer
