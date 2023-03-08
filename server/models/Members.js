@@ -13,6 +13,9 @@ required:true,
 unique:true
 },
 
+state:{
+type:String
+},
 
 password:{
 type:String,
@@ -39,7 +42,7 @@ bloodgroup:{
 age:{
     type:Number
 },
-DOB:{
+dob:{
     type:String
 },
 gender:{

@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt'
 import Members from '../models/Members.js';
 import generateToken from '../utils/jwt.js';
 import  jwt  from 'jsonwebtoken';
+import mongoose from 'mongoose';
+
 
 
 export const Login=(async(req,res)=>{
@@ -59,6 +61,8 @@ res.json({
 })
 
 export const admission =((req,res)=>{
+
+
     const {
 
         age,
@@ -68,18 +72,19 @@ export const admission =((req,res)=>{
         phonenumber,   
         pincode, 
         city,
+        token,
         Dob,
-        token
+        state
     } =req.body  
  
-
+console.log(Dob);
 
 try {
 
    
     if(age<13){
 
-        return res.json({notallowed:"Minimum age requirment is 13"});
+        return res.status(400).json({age:"Minimum required age is 13"});
 
      }
        
@@ -90,14 +95,15 @@ const id = decode.id
 Members.findByIdAndUpdate({_id:id}, {
     $set: { 
         age: age,
-        Bloodgrp: Bloodgrp,
+        bloodgroup: Bloodgrp,
         city: city,
         gender: gender,
         address: address,
         phonenumber: phonenumber,
         pincode: pincode,
-        Dob: Dob,
-        isApplication: true
+        dob: Dob,
+        isApplication: true,
+        state:state
     }
 }, { new: true })
 .then(updatemember => {
@@ -108,9 +114,13 @@ res.json({
 
 })
 .catch(err => {
+
     console.error(err);
+
     res.status(500).send('Error updating member details');
+
 });
+
 
 
 } catch (error) {
@@ -118,3 +128,45 @@ res.json({
 }
 
 })
+
+export const CheckoutUser=(req,res)=>{
+    let token;
+
+    try {
+        token = req.headers.authorization.split(' ')[1]
+        const decode = jwt.verify(token,process.env.JWT_SECRET)
+        const id = decode.id
+        const objid = mongoose.Types.ObjectId(id)
+
+ Members.aggregate([
+
+    {$match:{_id:objid}},
+
+    {$project:{
+        name:1,
+        address:1,
+        age:1,
+        dob:1,
+        city:1,
+        gender:1,
+        phonenumber:1,
+        pincode:1,
+        state:1,
+        bloodgroup:1
+
+    }}
+ ]).then((members)=>{
+    console.log(members);
+    res.status(200).json(members[0]);
+ }).catch((err)=>{
+    console.log(err);
+    res.status(500).json({ message: 'An error occurred while retrieving the member data.' });
+ })
+        
+
+    } catch (error) {
+        console.log(error.message);
+    }
+
+
+}
