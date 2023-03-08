@@ -9,7 +9,8 @@ import {message} from 'antd'
 function AdmissionForm() {
 
 
-  const [errors,setErrors] = useState({});  
+const [errors,setErrors] = useState({});  
+const [Admssion,setAdmssion]=useState([])
 const [age,setAge]=useState()
 const navigate = useNavigate()
 
@@ -78,21 +79,27 @@ const onGenderChange = (e) => {
     }
 
   }).then((response) => {
-    message.error('Already Have Applicatioin')
-const notAllo=response.data.notallowed
-setAge(notAllo)
 
-console.log(notAllo);
+const disAllowedAge=response.data.notallowed
+
+const isApplication= response.data.data
+
+setAge(disAllowedAge)
+
+setAdmssion([isApplication])
+
 
   }).catch(error=>{
-    
     console.log(error.message);
     setErrors(error.response.data);
    })
 
 }
+const array = Admssion.map((user)=>{
+  return user
+})
 
-console.log(admissionForm);
+
   return (
  
 <div className='container p-0'>

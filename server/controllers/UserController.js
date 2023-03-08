@@ -87,7 +87,7 @@ try {
 const decode = jwt.verify(token,process.env.JWT_SECRET)
 const id = decode.id
 
-Members.findByIdAndUpdate({_id:id,isApplication:false}, {
+Members.findByIdAndUpdate({_id:id}, {
     $set: { 
         age: age,
         Bloodgrp: Bloodgrp,
@@ -101,7 +101,10 @@ Members.findByIdAndUpdate({_id:id,isApplication:false}, {
     }
 }, { new: true })
 .then(updatemember => {
-    console.log('Member details updated successfully');
+res.json({
+  
+    data:updatemember
+})
 
 })
 .catch(err => {
