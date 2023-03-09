@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 
 
 const generateToken=(payload)=>{
+
     try {
         const options = { 
             expiresIn: '3d' 

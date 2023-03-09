@@ -3,7 +3,7 @@ import "./Checkout.css";
 import { useState,useEffect } from "react";
 import axios from '../../../axios/axiosInstance'
 import { useNavigate } from "react-router";
-
+import Modalshow from "../../../components/User/Modal/Modal";
 
 const text = `
 Please note that as of today, all members entering the gym
@@ -25,6 +25,8 @@ const token = window.sessionStorage.getItem('token')
 function Checkout() {
 
 const [Member,setMember]=useState([])
+const [editUser,setEditUser]=useState(false)
+
 
   const navigate = useNavigate()
 
@@ -62,6 +64,11 @@ if(!token){
   };
 
 
+const editUserHandler=()=>{
+ setEditUser(true)
+
+}
+
 
   return (
     <div className="bodyC">
@@ -89,9 +96,10 @@ if(!token){
           </div>
         </div>
 
+
         <div className="col-12 col-md-8 mt-4">
           <div className="card p-3">
-            <p className="mb-0 fw-bold h4">Information</p>
+            <p className="mb-0 fw-bold h4 text-danger">Information</p>
           </div>
         </div>
         <div className="row">
@@ -114,12 +122,17 @@ if(!token){
                    <span className=" fs-5 fw-bold">Admssion Fee : 1000 rs</span> 
  
               </div>
-         
               <hr />
-{Member.map((isMemb)=>{
 
+
+
+
+
+
+{Member.map((isMemb)=>{
 return(
 
+<address key={isMemb.name}>
 
 
               <div className="col-12">
@@ -166,17 +179,23 @@ return(
                       Pin Code: <span className="fw-bolder">{isMemb.pincode}</span>
                     </p>
                   </div>
-                  <div className="col-12 col-md-12 ">
-                    <button className="btn btn-dark float-end">Edit</button>
+                  <div className="col-12 col-md-12 "> 
+                    <button className="btn btn-dark float-end" onClick={editUserHandler}>Edit</button>
                   </div>
                 </div>
                 <hr />
               </div>
+{editUser &&(
+  <Modalshow />
+)}
 
+              </address>
 
 )
+})
+}
 
-})   }
+
 
 
               <div className="col-12">
@@ -192,6 +211,9 @@ return(
               </div>
             </div>
           </div>
+
+
+          
           <div className="col-12 col-md-4 mt-5 ">
             <div className="card p-3">
               <p className="mb-0 fw-bold h4 text-center">Payment</p>
