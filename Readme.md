@@ -21,3 +21,6 @@ OXFIT is a gym management application that helps gym owners manage their gyms ef
 * Member Ship Form
 * Checkout Page 
 * Edit Member Data from Checout Page
+
+
+# Other Updated Add Will Soon !
