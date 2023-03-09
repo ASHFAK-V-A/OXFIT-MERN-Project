@@ -47,7 +47,7 @@ if(!token){
       const isMember = response.data
       setMember([isMember])
     })
-  },[])
+  },[editUser])
   
 
 
@@ -69,6 +69,9 @@ const editUserHandler=()=>{
 
 }
 
+const CloseEduitUser=()=>{
+  setEditUser(false)
+}
 
   return (
     <div className="bodyC">
@@ -174,19 +177,29 @@ return(
                       Group: <span className="fw-bolder">{isMemb.bloodgroup}</span>
                     </p>
                   </div>
-                  <div className="col-12 col-md-4 pt-4">
+                  <div className="col-6 col-md-8 pt-2">
                     <p className="fw-normal">
                       Pin Code: <span className="fw-bolder">{isMemb.pincode}</span>
                     </p>
+                    
+                    
                   </div>
-                  <div className="col-12 col-md-12 "> 
+                  <div className="col-6 col-md-4 pt-2">
+                    <p className="fw-normal">
+                      Gender: <span className="fw-bolder">{isMemb.gender}</span>
+                    </p>
+                    
+                    
+                  </div>
+                  
+                  <div className="col-12 col-md-12 pt-3 "> 
                     <button className="btn btn-dark float-end" onClick={editUserHandler}>Edit</button>
                   </div>
                 </div>
                 <hr />
               </div>
 {editUser &&(
-  <Modalshow />
+  <Modalshow isMemb={isMemb} CloseEduitUser={CloseEduitUser} />
 )}
 
               </address>

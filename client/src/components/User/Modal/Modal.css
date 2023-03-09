@@ -11,7 +11,7 @@
     position:fixed;
     background:#f9f9f9;;
     width: 80%;
-    height: 80vh;
+    height: auto;
     top:50%;
     box-shadow: 1px 1px 28px 5px black;
     z-index: 999;

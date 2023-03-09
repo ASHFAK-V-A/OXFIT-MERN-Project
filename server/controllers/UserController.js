@@ -1,10 +1,10 @@
 import validateLoginInput from "../validations/login.js";
-import validateAdmssionForm from "../validations/AdmssionForm.js";
 import bcrypt from "bcrypt";
 import Members from "../models/Members.js";
 import generateToken from "../utils/jwt.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import validateAdmssionForm from "../validations/AdmssionForm.js";
 
 export const Login = async (req, res) => {
   let token;
@@ -49,19 +49,25 @@ export const Login = async (req, res) => {
 };
 
 export const admission = (req, res) => {
+  const { errors, isValid } = validateAdmssionForm(req.body);
+
+
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
   const {
     age,
     Bloodgrp,
-    gender,
     address,
     phonenumber,
     pincode,
     city,
+    gender,
     token,
     Dob,
     state,
   } = req.body;
-
+console.log(req.body);
   console.log(Dob);
 
   try {
@@ -79,7 +85,7 @@ export const admission = (req, res) => {
           age: age,
           bloodgroup: Bloodgrp,
           city: city,
-          gender: gender,
+          gender:gender,
           address: address,
           phonenumber: phonenumber,
           pincode: pincode,
@@ -123,6 +129,7 @@ export const CheckoutUser = (req, res) => {
           address: 1,
           age: 1,
           dob: 1,
+          gender:1,
           city: 1,
           gender: 1,
           phonenumber: 1,
