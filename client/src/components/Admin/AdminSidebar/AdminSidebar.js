@@ -89,6 +89,15 @@ useEffect(()=>{
                   <i className="bx bxs-user-plus nav_icon" ></i>{' '}
                   <span className="nav_name">Add Member</span>
                 </Link>
+                <Link to ='/plans' className="nav_link">
+                <i class='bx bxs-spreadsheet'></i>{' '}
+                  <span className="nav_name">Plans</span>
+                </Link>
+                <Link to ='/addmember' className="nav_link">
+                      <i class='bx bxs-add-to-queue'></i>
+{' '}
+                  <span className="nav_name">Member Ship</span>
+                </Link>
               
                 <Link href="#" className="nav_link">
                   <i className="bx bxs-receipt nav_icon"></i>{' '}
@@ -102,7 +111,7 @@ useEffect(()=>{
               </div>
             </div>
 
-     
+
           </nav>
 
           </div>

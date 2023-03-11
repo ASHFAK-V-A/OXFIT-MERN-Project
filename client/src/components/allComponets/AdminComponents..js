@@ -4,6 +4,7 @@ import AdminDashboardPage from '../../pages/Admin/AdminDashboardPage/AdminDashbo
 import AllMembersPage from '../../pages/Admin/AllMembersPage/AllMembersPage'
 import AdminLogin from '../Admin/Login/Login'
 import AddMemberPage from '../../pages/Admin/AddMemberPage/AddMemberPage'
+import PlanListPage from '../../pages/Admin/PlanListPage/PlanListPage'
 
 
 function AdminComponents() {
@@ -21,6 +22,7 @@ function AdminComponents() {
 
 <Route path='/members' element={<AllMembersPage />}></Route>
 
+<Route path='/plans' element={<PlanListPage />}></Route>
       </Routes>
       
       </BrowserRouter>
