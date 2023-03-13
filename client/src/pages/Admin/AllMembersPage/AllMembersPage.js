@@ -5,10 +5,6 @@ import Member from '../../../components/Admin/Members/Member'
 
 function AllMembersPage() {
 
-
-
-
-
   return (
     <div className='d-flex'>
        

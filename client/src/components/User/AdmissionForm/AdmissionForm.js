@@ -68,9 +68,7 @@ function AdmissionForm() {
         }
       )
       .then((response) => {
-
-
-
+        console.log(response.data);
         navigate('/checkout')
       })
       .catch((error) => {
@@ -79,8 +77,6 @@ function AdmissionForm() {
         setAge(error.response.data.age)
       });
   };
-
-console.log(age);
   return (
     <div className="container p-0">
       <section className="intro mt-5">

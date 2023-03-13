@@ -23,7 +23,7 @@ const initialState={email:'',password:''}
       }).then((response)=>{
         const JWTTOKEN=response.data.data
         localStorage.setItem("membertoken", JWTTOKEN);
-        navigate('/dashboard')
+        navigate('/admin/dashboard')
             }).catch(error=>{
           console.log(error);
        setErrors(error.response.data)
@@ -48,7 +48,7 @@ console.log(loginForm);
   <h1 className="text-center">Login</h1>
 <form className="needs-validation" onSubmit={submitHandler}>
     <div className="form-group was-validated mt-5 mb-2">
-        <label className="form-label fs-6" for="email">Email address</label>
+        <label className="form-label fs-6">Email address</label>
         <input className="form-control" 
         type="email" 
         id="email" 

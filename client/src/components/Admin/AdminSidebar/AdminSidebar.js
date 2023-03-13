@@ -3,14 +3,10 @@ import { Link } from 'react-router-dom'
 import  './AdminSidebar.css'
 
 
-
 function AdminSidebar() {
 
 
-
 useEffect(()=>{
-
-    
   const showNavbar = (toggleId, navId, bodyId, headerId) => {
     const toggle = document.getElementById(toggleId);
     const nav = document.getElementById(navId);
@@ -46,14 +42,7 @@ useEffect(()=>{
 },[])
 
 
-
   return (
-
-
-
-
-    <div>
-       
       <body className='sidebar-body' id="body-pd">
          <header className="header " id="header">
             <div className="header_toggle"> <i className='bx bx-menu' id="header-toggle"></i> </div>
@@ -70,36 +59,36 @@ useEffect(()=>{
               </Link>
        
               <div className="nav_lists">
-                <Link to='/dashboard'  className="nav_link active">
+                <Link to='/admin/dashboard'  className="nav_link active">
                   <i className="bx bxs-home nav_icon"></i>{' '}
                   <span className="nav_name">Home</span>
                 </Link>
             
-
-         
-                <Link to='/members'  className="nav_link">
-                  <i className="bx bxs-group nav_icon"></i>{' '}
+        
+                <Link to='/admin/members' className="nav_link">
+                  <i   className="bx bxs-group nav_icon"></i>{' '}
                   <span className="nav_name">Members Managment</span>
                 </Link>
+
                 <Link  className="nav_link">
                   <i className="bx bx-run nav_icon" ></i>{' '}
                   <span className="nav_name">Staff Managment</span>
                 </Link>
-                <Link to ='/addmember' className="nav_link">
+                <Link to ='/admin/addmember' className="nav_link">
                   <i className="bx bxs-user-plus nav_icon" ></i>{' '}
                   <span className="nav_name">Add Member</span>
                 </Link>
-                <Link to ='/plans' className="nav_link">
-                <i class='bx bxs-spreadsheet'></i>{' '}
+                <Link to ='/admin/plans' className="nav_link">
+                <i className='bx bxs-spreadsheet'></i>{' '}
                   <span className="nav_name">Plans</span>
                 </Link>
-                <Link to ='/addmember' className="nav_link">
+                <Link  className="nav_link">
                       <i class='bx bxs-add-to-queue'></i>
 {' '}
                   <span className="nav_name">Member Ship</span>
                 </Link>
               
-                <Link href="#" className="nav_link">
+                <Link to='#' className="nav_link">
                   <i className="bx bxs-receipt nav_icon"></i>{' '}
                   <span className="nav_name">Payment's</span>
                 </Link>
@@ -120,7 +109,7 @@ useEffect(()=>{
     </div>
 
           </body>
-    </div>
+    
   )
 }
 

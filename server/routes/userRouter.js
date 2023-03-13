@@ -1,5 +1,6 @@
 import express from 'express'
-import { Login,admission,CheckoutUser } from '../controllers/UserController.js'
+import {admission,CheckoutUser,memberPlan } from '../controllers/UserController.js'
+import { Login } from '../controllers/authController.js'
 import protect from '../Middleware/authMiddleware.js'
 
 
@@ -13,5 +14,7 @@ router.post('/login',Login)
 router.post('/admission',protect,admission)
 
 router.get('/checkout',protect,CheckoutUser)
+
+router.get('/plan',memberPlan)
 
 export default router 

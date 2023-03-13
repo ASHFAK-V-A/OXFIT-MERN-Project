@@ -4,6 +4,7 @@ import { useState,useEffect } from "react";
 import axios from '../../../axios/axiosInstance'
 import { useNavigate } from "react-router";
 import Modalshow from "../../../components/User/Modal/Modal";
+import Plans from "../Plans/Plans";
 
 const text = `
 Please note that as of today, all members entering the gym
@@ -81,24 +82,8 @@ const CloseEduitUser=()=>{
          
 
         <div className="row">
-          <div className="col-lg-4 mb-lg-0 mb-3">
-            <div className="card p-3">
-              <h1 className="fw-bold ">
-                500 <span className="fs-4 fw-blod">rs</span>
-              </h1>
-
-              <div className="number">
-                <label className="fw-bold fs-5" for="">
-                  For 1 Month
-                </label>
-              </div>
-              <div className="d-flex align-items-center justify-content-end">
-                <button className="btn btn-primary">select</button>
-              </div>
-            </div>
-          </div>
+        <Plans />
         </div>
-
 
         <div className="col-12 col-md-8 mt-4">
           <div className="card p-3">

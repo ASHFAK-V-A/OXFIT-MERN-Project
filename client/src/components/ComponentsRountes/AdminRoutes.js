@@ -10,19 +10,20 @@ import PlanListPage from '../../pages/Admin/PlanListPage/PlanListPage'
 function AdminComponents() {
   return (
     <div>
-      <BrowserRouter>
+ <BrowserRouter>
       
-      <Routes>
-        
- <Route extact  path="/admin"  element={<AdminLogin/>}></Route>
+ <Routes>
+  
+ <Route path="/admin"  element={<AdminLogin/>}></Route>
 
-<Route path='/dashboard' element={<AdminDashboardPage />} />
+<Route  path='/admin/dashboard' element={<AdminDashboardPage />} />
 
-<Route path='/addmember' element={<AddMemberPage /> } />
+<Route exact path='/admin/addmember' element={<AddMemberPage /> } />
 
-<Route path='/members' element={<AllMembersPage />}></Route>
+<Route path='/admin/members' element={<AllMembersPage />}></Route>
 
-<Route path='/plans' element={<PlanListPage />}></Route>
+<Route path='/admin/plans' element={<PlanListPage />}></Route>
+
       </Routes>
       
       </BrowserRouter>

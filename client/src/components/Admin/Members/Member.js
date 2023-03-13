@@ -8,9 +8,8 @@ function Member() {
  
 const [allMembers,setAllmembers]=useState([])
   
-  useEffect(async()=>{
- 
-    await axios.get('/admin/members').then((memberdata)=>{
+  useEffect(()=>{
+    axios.get('/admin/members').then((memberdata)=>{
        setAllmembers(memberdata.data.members)
     })
 
@@ -29,8 +28,8 @@ const [allMembers,setAllmembers]=useState([])
       <h2 className='text-center mt-5 pb-4 text-decoration-underline'>Members Managment</h2>
 
 
-      <table class="table mt-5">  
-  <thead class="thead bg-dark text-white">
+      <table className="table mt-5">  
+  <thead className="thead bg-dark text-white">
     <tr>
       <th scope="col">No</th>
       <th scope="col">Image</th>
