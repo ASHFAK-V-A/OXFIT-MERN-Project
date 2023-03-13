@@ -1,11 +1,17 @@
-
+import React from 'react'
 import "./Checkout.css";
 import { useState,useEffect } from "react";
 import axios from '../../../axios/axiosInstance'
 import { useNavigate } from "react-router";
 import Modalshow from "../../../components/User/Modal/Modal";
-import Plans from "../Plans/Plans";
+import "./Checkout.css"
+function Checkout() {
 
+    const [Member,setMember]=useState([])
+const [editUser,setEditUser]=useState(false)
+
+
+    
 const text = `
 Please note that as of today, all members entering the gym
 will be required to pay an admission fee 1000 .This fee will be
@@ -23,10 +29,7 @@ Trainer.. `
 
 const token = window.sessionStorage.getItem('token')
 
-function Checkout() {
 
-const [Member,setMember]=useState([])
-const [editUser,setEditUser]=useState(false)
 
 
   const navigate = useNavigate()
@@ -82,7 +85,7 @@ const CloseEduitUser=()=>{
          
 
         <div className="row">
-        <Plans />
+
         </div>
 
         <div className="col-12 col-md-8 mt-4">
@@ -251,6 +254,9 @@ return(
   
     </div>
   );
+
+
+
 }
 
-export default Checkout;
+export default Checkout

@@ -2,13 +2,12 @@ import Members from "../models/Members.js";
 import mongoose from "mongoose";
 import validateAdmssionForm from "../validations/AdmssionForm.js";
 import PlanSchema from "../models/Plans.js";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
-export const admission = (req, res) => {
+export const Admission = (req, res) => {
   const { errors, isValid } = validateAdmssionForm(req.body);
 
-
-  if(!isValid){
+  if (!isValid) {
     return res.status(400).json(errors);
   }
   const {
@@ -23,7 +22,6 @@ export const admission = (req, res) => {
     Dob,
     state,
   } = req.body;
-
 
   try {
     if (age < 13) {
@@ -40,7 +38,7 @@ export const admission = (req, res) => {
           age: age,
           bloodgroup: Bloodgrp,
           city: city,
-          gender:gender,
+          gender: gender,
           address: address,
           phonenumber: phonenumber,
           pincode: pincode,
@@ -83,7 +81,7 @@ export const CheckoutUser = (req, res) => {
           address: 1,
           age: 1,
           dob: 1,
-          gender:1,
+          gender: 1,
           city: 1,
           gender: 1,
           phonenumber: 1,
@@ -94,25 +92,38 @@ export const CheckoutUser = (req, res) => {
       },
     ])
       .then((members) => {
-    
         res.status(200).json(members[0]);
       })
       .catch((err) => {
         console.log(err);
-        res
-          .status(500)
-          .json({
-            message: "An error occurred while retrieving the member data.",
-          });
+        res.status(500).json({
+          message: "An error occurred while retrieving the member data.",
+        });
       });
   } catch (error) {
     console.log(error.message);
   }
 };
 
+export const memberPlan = (req, res) => {
+  PlanSchema.find()
+    .sort({ PlanAmount: 1 })
+    .then((isSorted) => {
+      res.status(200).json(isSorted);
+    });
+};
 
-export const memberPlan =(req,res)=>{
-  PlanSchema.find().sort({'PlanAmount':1}).then((isSorted)=>{
-res.status(200).json(isSorted)
-  })
+
+export const ActivatePlan=(req,res)=>{
+  try {
+    console.log(req.body);
+    const {planid} = req.body
+
+
+
+
+  } catch (error) {
+    console.log(error.message);
+  }
+
 }

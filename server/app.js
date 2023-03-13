@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './connection/Connection.js'
-import UserRouter from './routes/UserRouter.js'
+import MemberRouter from './routes/MemberRouter.js'
 import AdminRouter from './routes/adminRouter.js'
 import cors from 'cors'
 
@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(cors()) 
 
 
-app.use('/',UserRouter) 
+app.use('/',MemberRouter) 
 
 app.use('/admin',AdminRouter) 
 
