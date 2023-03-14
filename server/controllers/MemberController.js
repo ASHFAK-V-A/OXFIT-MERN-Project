@@ -114,16 +114,25 @@ export const memberPlan = (req, res) => {
 };
 
 
-export const ActivatePlan=(req,res)=>{
-  try {
-    console.log(req.body);
-    const {planid} = req.body
 
 
+export const planAmount = (req,res)=>{
+ const id=req.params.id
+console.log(id);
+const objid = mongoose.Types.ObjectId(id);
+PlanSchema.aggregate([
+  {$match:{_id:objid}},
+  {$project:{
+    PlanAmount:1,
+    PlanDuration:1,
+    PlanName:1
+  }}
 
 
-  } catch (error) {
-    console.log(error.message);
-  }
+]).then((getPlan)=>{
+  res.status(200).json(getPlan);
+}).catch((err)=>{
+  console.log(err);
+})
 
 }

@@ -7,6 +7,7 @@ import AdmissionPage from '../../pages/User/AdmssionPage/AdmssionPage'
 import Checkout from '../User/Checkout/Checkout'
 
 import PlanPage from '../../pages/User/PlanPage/PlanPage'
+import AdmissionForm from '../User/AdmissionForm/AdmissionForm'
 
 
 function UserComponets() {
@@ -23,7 +24,9 @@ function UserComponets() {
  
  <Route path='/admission' element={<PlanPage/>} />
 
-<Route path='/checkout' element={<Checkout/>} ></Route>
+ <Route path='/admissionform/:id' element={<AdmissionForm />}></Route>
+
+<Route path='/checkout/:id' element={<Checkout/>} ></Route>
 
 </Routes>
 

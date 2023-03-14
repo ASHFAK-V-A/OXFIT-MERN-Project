@@ -2,16 +2,20 @@ import React from 'react'
 import "./Checkout.css";
 import { useState,useEffect } from "react";
 import axios from '../../../axios/axiosInstance'
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Modalshow from "../../../components/User/Modal/Modal";
 import "./Checkout.css"
+
+
 function Checkout() {
 
-    const [Member,setMember]=useState([])
+const [PlanData,setPlanData]=useState([])
+const [Member,setMember]=useState([])
 const [editUser,setEditUser]=useState(false)
 
+const id = useParams().id
 
-    
+console.log("checkount",id);
 const text = `
 Please note that as of today, all members entering the gym
 will be required to pay an admission fee 1000 .This fee will be
@@ -29,11 +33,7 @@ Trainer.. `
 
 const token = window.sessionStorage.getItem('token')
 
-
-
-
   const navigate = useNavigate()
-
 
 
   useEffect(()=>{
@@ -53,7 +53,12 @@ if(!token){
     })
   },[editUser])
   
+useEffect(()=>{
+  axios.get(`/getplan/${id}`).then((response)=>{
+    setPlanData(response.data);
 
+   })
+},[])
 
 
   const [showFullText, setShowFullText] = useState(false);
@@ -201,14 +206,17 @@ return(
 
               <div className="col-12">
                 <p className="mb-0 fw-bold h4 mb-3">SELECTED PLAN</p>
+                {PlanData.map((getplan)=>(
                 <div className="row">
                   <hr />
 
                   <div className="col-12 col-md-12">
-                    <h1 className="text-center ">500</h1>
-                    <p className="text-center fw-bolder">For 1 Month</p>
+                  <h3 className="text-center pb-2">{getplan.PlanName}</h3>
+                    <h1 className="text-center pb-2  ">{getplan.PlanAmount}</h1>
+                    <p className="text-center fw-bolder">For {getplan.PlanDuraion} Month</p>
                   </div>
                 </div>
+                ))}
               </div>
             </div>
           </div>
@@ -228,14 +236,27 @@ return(
               </div>
 
               <div className="col-12 col-md-12 pt-3">
-                <p className="ms-1 fw-bolder">
+                <p className="ms-1  text-muted">
                   ADMSSION FEE
-                  <span className="float-end pe-3 fw-bold">: 1000</span>
+                  <span className="float-end pe-3 fw-bold text-dark">: 1000.00</span>
                 </p>
-                <p className="ms-1 pt-1 fw-bolder">
-                  For Monthly Fee
-                  <span className="float-end pe-3 fw-bold">: 500</span>
-                </p>
+                {PlanData.map((getplan)=>(
+
+                 <div>
+             
+       <p className="ms-1 pt-1 text-muted">
+             
+                Monthly Payment 
+               
+                  <span className="float-end pe-3 fw-bold text-dark">: {getplan.PlanAmount}.00</span>    </p>
+
+                <p className="ms-1 pt-1 text-muted">Plan Duration
+                  <span className="float-end pe-3 fw-bold text-dark">: {getplan.PlanDuration} month</span></p>
+                 </div>
+
+         
+       
+                            ))}
               </div>
               <hr />
               <div className="col-12 col-md-12 ">

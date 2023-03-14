@@ -1,5 +1,5 @@
 import express from 'express'
-import {Admission,CheckoutUser,memberPlan,ActivatePlan } from '../controllers/MemberController.js'
+import {Admission,CheckoutUser,memberPlan,planAmount } from '../controllers/MemberController.js'
 import { Login } from '../controllers/authController.js'
 import protect from '../Middleware/authMiddleware.js'
 
@@ -19,8 +19,6 @@ router.get('/checkout',protect,CheckoutUser)
 router.get('/plan',memberPlan)
 
 
-router.post('/registerplan',ActivatePlan)
-
-
+router.get('/getplan/:id',planAmount)
 
 export default router 

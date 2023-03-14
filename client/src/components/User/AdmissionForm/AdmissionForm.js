@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "../../../axios/axiosInstance";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import "./AdmissionForm.css";
 
 function AdmissionForm() {
+  const id = useParams().id
+
   const [errors, setErrors] = useState({});
   const [Admssion, setAdmssion] = useState([]);
   const [age, setAge] = useState();
+  const [PlanData,setPlanData]=useState([])
   const navigate = useNavigate();
 
   const token = sessionStorage.getItem("token");
@@ -18,7 +21,14 @@ function AdmissionForm() {
     if (!token) {
       navigate("/login");
     }
-  });
+
+   axios.get(`/getplan/${id}`).then((response)=>{
+    setPlanData(response.data);
+
+   })
+
+    
+  },[]);
 
   const initialState = {
     age: "",
@@ -69,12 +79,12 @@ function AdmissionForm() {
       )
       .then((response) => {
         console.log(response.data);
-        navigate('/checkout')
+        navigate(`/checkout/${id}`);
       })
       .catch((error) => {
         console.log(error);
         setErrors(error.response.data);
-        setAge(error.response.data.age)
+        setAge(error.response.data.age);
       });
   };
   return (
@@ -89,7 +99,25 @@ function AdmissionForm() {
                     <h1 className="mb-5 text-center">Admission Form</h1>
 
                     <form onSubmit={onSubmitHandler}>
-                      <div className="row">
+                      <div className="col-12 col-md-6">
+                          {PlanData.map((getplan)=>(
+                        <div class="alert alert-success" role="alert">
+                          <h4 class="alert-heading fw-bolder fs-3">
+                            SELECTED PLAN{" "}
+                          </h4>
+                          <hr />
+
+         
+                          <div className="amountext">
+                            <h4>{getplan.PlanName}</h4>
+                            <span className="sign">₹</span>
+                            <span className="currency"> {getplan.PlanAmount}</span>
+                          </div>
+                          <h4 className="text-center mt-3">For {getplan.PlanDuration} Month</h4>
+                        </div>
+                 ))}
+                      </div>
+                      <div className="row mt-5">
                         <div className="col-12 col-md-6 mb-4">
                           <div className="form-outline">
                             <label className="form-label">Name</label>
