@@ -34,7 +34,7 @@ Trainer.. `
 const token = window.sessionStorage.getItem('token')
 
   const navigate = useNavigate()
-
+  const [showMemberShipFee, setShowMemberShipFee] = useState();
 
   useEffect(()=>{
     
@@ -47,7 +47,6 @@ if(!token){
         },
     })
     .then((response)=>{
-      console.log(response);
       const isMember = response.data
       setMember([isMember])
     })
@@ -59,7 +58,14 @@ useEffect(()=>{
 
    })
 },[])
+useEffect(()=>{
+  axios.get("/getmembershipfee").then((response) => {
+    const membershipfee=  response.data.membershipfee
+    console.log("emembersdfsd",membershipfee);
+  setShowMemberShipFee(membershipfee);
+});
 
+},[])
 
   const [showFullText, setShowFullText] = useState(false);
 
@@ -115,7 +121,7 @@ const CloseEduitUser=()=>{
                
               </div>
               <div className="col-12 d-flex justify-content-end mt-4">
-                   <span className=" fs-5 fw-bold">Admssion Fee : 1000 rs</span> 
+                   <span className=" fs-5 ">Admssion Fee : <span className='fs-4 fw-bold'> {showMemberShipFee} rs</span></span> 
  
               </div>
               <hr />
@@ -238,7 +244,7 @@ return(
               <div className="col-12 col-md-12 pt-3">
                 <p className="ms-1  text-muted">
                   ADMSSION FEE
-                  <span className="float-end pe-3 fw-bold text-dark">: 1000.00</span>
+                  <span className="float-end pe-3 fw-bold text-dark">: {showMemberShipFee}.00</span>
                 </p>
                 {PlanData.map((getplan)=>(
 

@@ -1,6 +1,7 @@
 import validateRegisterInput from "../validations/register.js";
 import PlanSchema from "../models/Plans.js";
 import MembersSchema from "../models/Members.js";
+import MemberShipFeeScheam from "../models/memberShipFee.js";
 import bcrypt from "bcrypt";
 
 
@@ -82,3 +83,29 @@ export const PlanList = async (req, res) => {
     console.log(error.message);
   }
 };
+
+
+export const addMemberShipFee= async (req,res)=>{
+
+try {
+  const fee =req.body.AddmemberShipFee
+  console.log(fee);
+ MemberShipFeeScheam.updateOne({
+ $set:{
+  membershipfee:fee
+ }
+ }).then(()=>{
+ res.status(200).json({message:"successfully updated"})
+ })
+
+} catch (error) {
+console.log(error.message);  
+}
+}
+
+export const getMemberShip =(req,res)=>{
+MemberShipFeeScheam.find().then((membershipfee)=>{
+  console.log(membershipfee);
+  res.status(200).json(membershipfee[0])
+})
+}

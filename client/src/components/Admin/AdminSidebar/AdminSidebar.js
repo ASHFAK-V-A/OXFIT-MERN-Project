@@ -82,7 +82,7 @@ useEffect(()=>{
                 <i className='bx bxs-spreadsheet'></i>{' '}
                   <span className="nav_name">Plans</span>
                 </Link>
-                <Link  className="nav_link">
+                <Link to='/admin/addmembershipfee' className="nav_link">
                       <i class='bx bxs-add-to-queue'></i>
 {' '}
                   <span className="nav_name">Member Ship</span>

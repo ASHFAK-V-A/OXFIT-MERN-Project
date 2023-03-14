@@ -127,9 +127,7 @@ function PlanLIst() {
             </thead>
 
             {Plans.map((totalpalns, index) => {
-              {
-                console.log(totalpalns.PlanName);
-              }
+      
               return (
                 <tbody>
                   <tr>

@@ -1,5 +1,5 @@
 import express from 'express'
-import {Admission,CheckoutUser,memberPlan,planAmount } from '../controllers/MemberController.js'
+import {Admission,CheckoutUser,memberPlan,planAmount,getMemberShipFee } from '../controllers/MemberController.js'
 import { Login } from '../controllers/authController.js'
 import protect from '../Middleware/authMiddleware.js'
 
@@ -20,5 +20,7 @@ router.get('/plan',memberPlan)
 
 
 router.get('/getplan/:id',planAmount)
+
+router.get('/getmembershipfee',getMemberShipFee)
 
 export default router 

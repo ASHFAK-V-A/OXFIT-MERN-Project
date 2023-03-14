@@ -5,7 +5,7 @@ import AllMembersPage from '../../pages/Admin/AllMembersPage/AllMembersPage'
 import AdminLogin from '../Admin/Login/Login'
 import AddMemberPage from '../../pages/Admin/AddMemberPage/AddMemberPage'
 import PlanListPage from '../../pages/Admin/PlanListPage/PlanListPage'
-
+import MemberShipPage from '../../pages/Admin/MemberShipPage/MemberShipPage'
 
 function AdminComponents() {
   return (
@@ -24,6 +24,7 @@ function AdminComponents() {
 
 <Route path='/admin/plans' element={<PlanListPage />}></Route>
 
+<Route path='/admin/addmembershipfee' element={<MemberShipPage/>}></Route>
       </Routes>
       
       </BrowserRouter>

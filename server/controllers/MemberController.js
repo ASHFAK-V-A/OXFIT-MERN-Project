@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import validateAdmssionForm from "../validations/AdmssionForm.js";
 import PlanSchema from "../models/Plans.js";
 import jwt from "jsonwebtoken";
-
+import MemberShipFeeScheam from "../models/memberShipFee.js";
 export const Admission = (req, res) => {
   const { errors, isValid } = validateAdmssionForm(req.body);
 
@@ -136,3 +136,9 @@ PlanSchema.aggregate([
 })
 
 }
+export const getMemberShipFee =(req,res)=>{
+  MemberShipFeeScheam.find().then((membershipfee)=>{
+    console.log(membershipfee);
+    res.status(200).json(membershipfee[0])
+  })
+  }
