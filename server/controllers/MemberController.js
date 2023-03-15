@@ -4,6 +4,8 @@ import validateAdmssionForm from "../validations/AdmssionForm.js";
 import PlanSchema from "../models/Plans.js";
 import jwt from "jsonwebtoken";
 import MemberShipFeeScheam from "../models/memberShipFee.js";
+import Razorpay from 'razorpay'
+import crypto from 'crypto'
 export const Admission = (req, res) => {
   const { errors, isValid } = validateAdmssionForm(req.body);
 
@@ -13,7 +15,7 @@ export const Admission = (req, res) => {
   const {
     age,
     Bloodgrp,
-    address,
+    address, 
     phonenumber,
     pincode,
     city,
@@ -137,8 +139,93 @@ PlanSchema.aggregate([
 
 }
 export const getMemberShipFee =(req,res)=>{
+
   MemberShipFeeScheam.find().then((membershipfee)=>{
-    console.log(membershipfee);
     res.status(200).json(membershipfee[0])
   })
   }
+
+ export const tottalAmount= async(req,res)=>{
+const id= req.params.id
+try {
+    
+ await MemberShipFeeScheam.find().then((membershipfee)=>{
+  const membershipFeeAmount =membershipfee[0].membershipfee
+
+  PlanSchema.findById(id).then((matchedplan)=>{
+    const selectedplan =matchedplan.PlanAmount
+    const planduration = matchedplan.PlanDuration
+    const plantype = matchedplan.PlanName
+    const totalBill = membershipFeeAmount + selectedplan;
+    res.status(200).json({
+      totalBill,
+      membershipFeeAmount,
+      selectedplan,
+      planduration,
+      plantype
+    })
+  
+  })
+ })
+
+} catch (error) {     
+  console.log(error.message);
+}
+
+  }
+
+ export const Payment = async (req,res)=>{
+    console.log("asdfaaa",req.body.data);
+    try {
+      const instance = new Razorpay({
+        key_id:process.env.KEY_ID,
+        key_secret:process.env.KEY_SECRET,
+      });
+
+      const options={
+        amount:req.body.data*100,
+        currency:"INR",
+        receipt:crypto.randomBytes(10).toString('hex')
+      }
+
+      instance.orders.create(options,(error,order)=>{
+        if(error){
+          return res.status(500).json({message:"Something Went Wrong!"})
+        }
+        
+        res.status(200).json({data:order})
+      })
+      
+    } catch (error) {
+ console.log(error.message);     
+ res.status(500).json({message:"Internal Server Error!"})
+    }
+
+  }
+
+export const VerifyPayment =()=>{
+  try {
+         
+
+ const {
+  razorpay_order_id,
+  razorpay_payment_id,
+  razorpay_signature
+ }= req.body
+
+const sign = razorpay_order_id+" "+razorpay_payment_id
+const expectedSign = crypto
+.createHash("sha256",process.env.KEY_SECRET)
+.update(sign.toString())
+.digest('hex')
+
+if(razorpay_signature===expectedSign){
+  return res.status(200).json({message:"Payment verified successfully"})
+}else{
+  return res.status(400).json({message:"Invalid signature sent!"})
+}
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}

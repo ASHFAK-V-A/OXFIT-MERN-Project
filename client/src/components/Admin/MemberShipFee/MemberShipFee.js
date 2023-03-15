@@ -37,7 +37,7 @@ const [addMembBtn,setaddMembBtn]=useState(false)
         setaddMembBtn(true)
       });
   };
-
+console.log(AddmemberShipFee);
   return (
     <div className="container mt-5 ">
       <h2 className="text-center mt-5 pb-4 text-decoration-underline">

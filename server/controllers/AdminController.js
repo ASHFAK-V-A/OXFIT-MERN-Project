@@ -3,6 +3,7 @@ import PlanSchema from "../models/Plans.js";
 import MembersSchema from "../models/Members.js";
 import MemberShipFeeScheam from "../models/memberShipFee.js";
 import bcrypt from "bcrypt";
+import { memberPlan } from "./MemberController.js";
 
 
 
@@ -31,7 +32,7 @@ export const AddMember = async (req, res) => {
       isApplication: false,
     });
 
-    console.log(newUser);
+
     const savedUser = await newUser.save();
     return res.json(savedUser);
   } catch (error) {
@@ -86,26 +87,18 @@ export const PlanList = async (req, res) => {
 
 
 export const addMemberShipFee= async (req,res)=>{
+const membershipamount = Number(req.body.AddmemberShipFee)
+console.log(membershipamount);
+const addmembershipfee=new MemberShipFeeScheam({
+  membershipfee:membershipamount,
+})
+   
+await addmembershipfee.save()  
 
-try {
-  const fee =req.body.AddmemberShipFee
-  console.log(fee);
- MemberShipFeeScheam.updateOne({
- $set:{
-  membershipfee:fee
- }
- }).then(()=>{
- res.status(200).json({message:"successfully updated"})
- })
-
-} catch (error) {
-console.log(error.message);  
-}
 }
 
 export const getMemberShip =(req,res)=>{
 MemberShipFeeScheam.find().then((membershipfee)=>{
-  console.log(membershipfee);
   res.status(200).json(membershipfee[0])
 })
 }

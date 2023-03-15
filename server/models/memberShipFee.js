@@ -9,4 +9,4 @@ const MemberShipFee= mongoose.Schema({
 
 const MemberShipFeeScheam = mongoose.model('MemberShipFee',MemberShipFee)
 
-export default MemberShipFeeScheam
+export default MemberShipFeeScheam 
