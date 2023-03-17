@@ -1,11 +1,12 @@
 import React from "react";
 import "./Checkout.css";
 import { useState, useEffect } from "react";
+import swal from 'sweetalert'
 import axios from "../../../axios/axiosInstance";
 import { useNavigate, useParams } from "react-router";
 import Modalshow from "../../../components/User/Modal/Modal";
 import "./Checkout.css";
-import { theme } from "antd";
+
 
 function Checkout() {
   const [PlanData, setPlanData] = useState([]);
@@ -59,7 +60,7 @@ Trainer.. `;
     e.preventDefault()
    try {
     axios.post('/payment',{
-    data:PlanData.totalBill
+    data:PlanData.totalBill,
     }).then((response)=>{
    const data=response.data;
     initPayment(data.data)
@@ -82,15 +83,27 @@ const options={
   currency:data.currency,
   order_id:data.id,
   handler:async(response)=>{
+    console.log(response);
     try {
-      axios.post('/verify',{
-        data:PlanData.totalBill
+   await axios.post(`/VerifyPayment/${id}`,{
+        data:PlanData.totalBill,
+        planId:id,
+        response,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }).then((responesres)=>{
-        console.log(responesres.data);
+        swal({
+          title: responesres.data.message,
+          icon: "success",
+          button: "OK",
+          dangerMode: true,
+        });
 
+        
       })
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response.data.message);
     }
   }
   

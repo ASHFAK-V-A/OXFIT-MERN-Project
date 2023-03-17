@@ -51,7 +51,18 @@ gender:{
 isApplication: { 
     type: Boolean,
      default: false 
-    }
+    },
+
+ plan:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"plans"
+},
+planActivationDate: {
+    type: Date
+  },
+planExpirationDate:{
+    type:Date
+}
 
 })
 

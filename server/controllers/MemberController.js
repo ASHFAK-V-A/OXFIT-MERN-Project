@@ -4,8 +4,11 @@ import validateAdmssionForm from "../validations/AdmssionForm.js";
 import PlanSchema from "../models/Plans.js";
 import jwt from "jsonwebtoken";
 import MemberShipFeeScheam from "../models/memberShipFee.js";
-import Razorpay from 'razorpay'
-import crypto from 'crypto'
+import Razorpay from "razorpay";
+import crypto from "crypto";
+import MemberShip from "../models/MemberShip.js";
+import moment from "moment";
+
 export const Admission = (req, res) => {
   const { errors, isValid } = validateAdmssionForm(req.body);
 
@@ -15,7 +18,7 @@ export const Admission = (req, res) => {
   const {
     age,
     Bloodgrp,
-    address, 
+    address,
     phonenumber,
     pincode,
     city,
@@ -73,7 +76,6 @@ export const CheckoutUser = (req, res) => {
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     const id = decode.id;
     const objid = mongoose.Types.ObjectId(id);
-
     Members.aggregate([
       { $match: { _id: objid } },
 
@@ -107,125 +109,172 @@ export const CheckoutUser = (req, res) => {
   }
 };
 
-export const memberPlan = (req, res) => {
-  PlanSchema.find()
-    .sort({ PlanAmount: 1 })
-    .then((isSorted) => {
-      res.status(200).json(isSorted);
+export const memberPlan = (req, res) => { 
+  let token
+    token = req.headers.authorization.split(' ')[1]
+  console.log(token);
+  const decode = jwt.verify(token, process.env.JWT_SECRET);
+  const id = decode.id;
+  const objid = mongoose.Types.ObjectId(id);
+   
+  function formatDate(date) {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = ('0' + (d.getMonth() + 1)).slice(-2);
+    const day = ('0' + d.getDate()).slice(-2);
+    return `${day}-${month}-${year}`;
+  }
+  
+  Members.findById(objid).then((memberisplan)=>{
+    console.log(memberisplan); 
+    if(memberisplan.isApplication){
+      const activationDate = formatDate(memberisplan.planActivationDate);
+      console.log(activationDate);
+      const expirationDate = formatDate(memberisplan.planExpirationDate);
+      console.log(expirationDate);
+      const response = { ...memberisplan._doc, planActivationDate: activationDate, planExpirationDate: expirationDate };
+      return res.status(200).json(response);
+    }else{
+      PlanSchema.find()
+      .sort({ PlanAmount: 1 })
+      .then((isSorted) => {
+        res.status(200).json(isSorted);
+      });
+  };
+  }) 
+  
+  }
+
+
+export const planAmount = (req, res) => {
+  const id = req.params.id;
+  const objid = mongoose.Types.ObjectId(id);
+  PlanSchema.aggregate([
+    { $match: { _id: objid } },
+    {
+      $project: {
+        PlanAmount: 1,
+        PlanDuration: 1,
+        PlanName: 1,
+      },
+    },
+  ])
+    .then((getPlan) => {
+      res.status(200).json(getPlan);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
+export const getMemberShipFee = (req, res) => {
+  MemberShipFeeScheam.find().then((membershipfee) => {
+    res.status(200).json(membershipfee[0]);
+  });
+};
 
-
-
-
-export const planAmount = (req,res)=>{
- const id=req.params.id
-console.log(id);
-const objid = mongoose.Types.ObjectId(id);
-PlanSchema.aggregate([
-  {$match:{_id:objid}},
-  {$project:{
-    PlanAmount:1,
-    PlanDuration:1,
-    PlanName:1
-  }}
-
-
-]).then((getPlan)=>{
-  res.status(200).json(getPlan);
-}).catch((err)=>{
-  console.log(err);
-})
-
-}
-export const getMemberShipFee =(req,res)=>{
-
-  MemberShipFeeScheam.find().then((membershipfee)=>{
-    res.status(200).json(membershipfee[0])
-  })
-  }
-
- export const tottalAmount= async(req,res)=>{
-const id= req.params.id
-try {
-    
- await MemberShipFeeScheam.find().then((membershipfee)=>{
-  const membershipFeeAmount =membershipfee[0].membershipfee
-
-  PlanSchema.findById(id).then((matchedplan)=>{
-    const selectedplan =matchedplan.PlanAmount
-    const planduration = matchedplan.PlanDuration
-    const plantype = matchedplan.PlanName
-    const totalBill = membershipFeeAmount + selectedplan;
-    res.status(200).json({
-      totalBill,
-      membershipFeeAmount,
-      selectedplan,
-      planduration,
-      plantype
-    })
-  
-  })
- })
-
-} catch (error) {     
-  console.log(error.message);
-}
-
-  }
-
- export const Payment = async (req,res)=>{
-    console.log("asdfaaa",req.body.data);
-    try {
-      const instance = new Razorpay({
-        key_id:process.env.KEY_ID,
-        key_secret:process.env.KEY_SECRET,
-      });
-
-      const options={
-        amount:req.body.data*100,
-        currency:"INR",
-        receipt:crypto.randomBytes(10).toString('hex')
-      }
-
-      instance.orders.create(options,(error,order)=>{
-        if(error){
-          return res.status(500).json({message:"Something Went Wrong!"})
-        }
-        
-        res.status(200).json({data:order})
-      })
-      
-    } catch (error) {
- console.log(error.message);     
- res.status(500).json({message:"Internal Server Error!"})
-    }
-
-  }
-
-export const VerifyPayment =()=>{
+export const tottalAmount = async (req, res) => {
+  const id = req.params.id;
   try {
-         
+    await MemberShipFeeScheam.find().then((membershipfee) => {
+      const membershipFeeAmount = membershipfee[0].membershipfee;
 
- const {
-  razorpay_order_id,
-  razorpay_payment_id,
-  razorpay_signature
- }= req.body
-
-const sign = razorpay_order_id+" "+razorpay_payment_id
-const expectedSign = crypto
-.createHash("sha256",process.env.KEY_SECRET)
-.update(sign.toString())
-.digest('hex')
-
-if(razorpay_signature===expectedSign){
-  return res.status(200).json({message:"Payment verified successfully"})
-}else{
-  return res.status(400).json({message:"Invalid signature sent!"})
-}
-
+      PlanSchema.findById(id).then((matchedplan) => {
+        const selectedplan = matchedplan.PlanAmount;
+        const planduration = matchedplan.PlanDuration;
+        const plantype = matchedplan.PlanName;
+        const totalBill = membershipFeeAmount + selectedplan;
+        res.status(200).json({
+          totalBill,
+          membershipFeeAmount,
+          selectedplan,
+          planduration,
+          plantype,
+        });
+      });
+    });
   } catch (error) {
     console.log(error.message);
   }
-}
+};
+
+export const RazorPayInstance = async (req, res) => {
+  try {
+    const instance = new Razorpay({
+      key_id: process.env.KEY_ID,
+      key_secret: process.env.KEY_SECRET,
+    });
+
+    const options = {
+      amount: req.body.data * 100,
+      currency: "INR",
+      receipt: crypto.randomBytes(10).toString("hex"),
+    };
+
+    instance.orders.create(options, (error, order) => {
+      if (error) {
+        return res.status(500).json({ message: "Something Went Wrong!" });
+      }
+
+      res.status(200).json({ data: order });
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+};
+
+export const VerifyPayment = async (req, res) => {
+  const planid = req.params.id;
+  let token;
+  try {
+    token = req.body.headers.Authorization.split(" ")[1];
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    const id = decode.id;
+    const objid = mongoose.Types.ObjectId(id);
+
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+      req.body.response;
+
+    const sign = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSign = crypto
+
+      .createHmac("sha256", process.env.KEY_SECRET)
+      .update(sign.toString())
+      .digest("hex");
+
+    if (razorpay_signature !== expectedSign) {
+      return res.status(400).json({ message: "Invalid signature sent!" });
+    } else {
+      const member = await Members.findById(objid);
+      if (!member) {
+        return res.status(400).json({ message: "Member not found" });
+      }
+
+      member.isApplication = true;
+      member.plan = planid;
+      member.populate("plan").then((member) => {
+        member.planActivationDate = moment();
+        const planDuration = member.plan.PlanDuration;
+        const planExpirationDate = moment(member.planActivationDate).add(
+          planDuration,
+          "months"
+        );
+        member.planExpirationDate = planExpirationDate;
+        member
+          .save()
+          .then(() => {
+            console.log("Member plan expiration date saved successfully.");
+          })
+          .catch((error) => {
+            console.error("Error saving member plan expiration date: ", error);
+          });
+      });
+      console.log("sucesss");
+      return res
+        .status(200)
+        .json({ message: "Admssion Successfully Completed" });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
