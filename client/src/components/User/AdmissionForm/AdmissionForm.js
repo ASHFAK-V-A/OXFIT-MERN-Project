@@ -8,7 +8,6 @@ function AdmissionForm() {
   const id = useParams().id
 
   const [errors, setErrors] = useState({});
-  const [Admssion, setAdmssion] = useState([]);
   const [age, setAge] = useState();
   const [PlanData,setPlanData]=useState([])
   const navigate = useNavigate();

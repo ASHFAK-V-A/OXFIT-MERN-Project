@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import axios from "../../../axios/axiosInstance";
-import { useNavigate } from "react-router";
 import "./Modal.css";
 
 function Modalshow({ isMemb, CloseEduitUser }) {
-  const navigate = useNavigate();
+
 
   const token = window.sessionStorage.getItem("token");
 
@@ -42,7 +41,6 @@ function Modalshow({ isMemb, CloseEduitUser }) {
         {
           age: editForm.age,
           Bloodgrp: editForm.bloodgrp,
-          gender: editForm.gender,
           gender: editForm.gender,
           address: editForm.address,
           phonenumber: editForm.phonenumber,

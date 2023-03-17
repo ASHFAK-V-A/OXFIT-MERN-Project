@@ -5,6 +5,7 @@ import swal from 'sweetalert'
 import axios from "../../../axios/axiosInstance";
 import { useNavigate, useParams } from "react-router";
 import Modalshow from "../../../components/User/Modal/Modal";
+import {Key_ID} from '../../../constants/RazorPay'
 import "./Checkout.css";
 
 
@@ -77,8 +78,8 @@ Trainer.. `;
 
   const initPayment=(data)=>{
 const options={
-  key:"rzp_test_HeM9YZO4tF4X6p",
-  name:'Hello',
+  key:Key_ID,
+  name:'TEST',
   amount:data.amount,
   currency:data.currency,
   order_id:data.id,
@@ -90,16 +91,15 @@ const options={
         planId:id,
         response,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, 
         },
       }).then((responesres)=>{
         swal({
           title: responesres.data.message,
           icon: "success",
           button: "OK",
-          dangerMode: true,
         });
-
+          navigate('/admission')
         
       })
     } catch (error) {
@@ -113,10 +113,6 @@ rz1.open()
 
 
   }
-
-
-
-
 
 
   const [showFullText, setShowFullText] = useState(false);

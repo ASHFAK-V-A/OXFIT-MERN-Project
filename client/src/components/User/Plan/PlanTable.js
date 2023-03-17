@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import antd from "antd";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
 import axios from "../../../axios/axiosInstance";
 import "./PlanTable.css";
 
-const token = window.sessionStorage.getItem("token");
-
-console.log(token);
 function PlanTable() {
   const [plan, setPlan] = useState([]);
   const [isAdmisson, setAdmssion] = useState(false);
-  const [MemberData,setMemberData]=useState([])
+  const [MemberData, setMemberData] = useState([]);
 
-  const navigate = useNavigate();
   useEffect(() => {
+    const token = sessionStorage.getItem("token");
     axios
       .get("/plan", {
         headers: {
@@ -23,18 +18,17 @@ function PlanTable() {
       })
       .then((response) => {
         console.log(response);
-        const isAdmission = response.data.isApplication
-        const Member = response.data
-           setPlan(response.data)
-           setMemberData([Member])
-           setAdmssion(isAdmission)
+        const isAdmission = response.data.isApplication;
+        const Member = response.data;
+        setAdmssion(isAdmission);
+        setPlan(response.data);
+        setMemberData([Member]);
       })
-      .catch((err) => { 
+      .catch((err) => {
         console.log(err);
       });
-  }, []);
-  console.log(isAdmisson);
-console.log(MemberData);
+  }, [isAdmisson]);
+
   return (
     <>
       {!isAdmisson ? (
@@ -96,96 +90,105 @@ console.log(MemberData);
             <h2 className="text-center text-decoration-underline">
               Admission Deatils
             </h2>
-{MemberData.map((memberdetail)=>(
+            {MemberData.map((memberdetail) => (
+              <div className="col-md-11 mt-5" key={memberdetail}>
+                <div className="card mb-3">
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Name</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.name}
+                      </div>
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Email</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.email}
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Address</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.address}
+                      </div>
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Phon</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.phonenumber}
+                      </div>
+                    </div>
 
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Age</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.age}
+                      </div>
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Gender</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.gender}
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Boold Group</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.bloodgroup}
+                      </div>
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">DOB</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.dob}
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">City</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.city}
+                      </div>
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">State</h6>
+                      </div>
+                      <div className="col-sm-3 text-secondary">
+                        {memberdetail.state}
+                      </div>
+                    </div>
 
-            <div class="col-md-11 mt-5">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Name</h6>
+                    <hr />
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Plan Activation Date</h6>
+                      </div>
+                      <div className="col-sm-3 fw-bold">
+                        {memberdetail.planActivationDate}
+                      </div>
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Plan Expiration Date</h6>
+                      </div>
+                      <div className="col-sm-3 fw-bold">
+                        {memberdetail.planExpirationDate}
+                      </div>
                     </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.name}</div>
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.email}</div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Address</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.address}</div>
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Phon</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.phonenumber}</div>
-                  </div>
-              
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Age</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.age}</div>
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Gender</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.gender}</div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Boold Group</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.bloodgroup}</div>
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">DOB</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.dob}</div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">City</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.city}</div>
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">State</h6>
-                    </div>
-                    <div class="col-sm-3 text-secondary">{memberdetail.state}</div>
-                  </div>
-          
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Plan Activation Date</h6>
-                    </div>
-                    <div class="col-sm-3 fw-bold">{memberdetail. planActivationDate}</div>
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Plan Expiration Date</h6>
-                    </div>
-                    <div class="col-sm-3 fw-bold">{memberdetail.planExpirationDate}</div>
-                  </div>
-                  <hr />
-          
-               
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a
-                        class="btn btn-info "
-                        target="__blank"
-                        href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
-                      >
-                        Edit
-                      </a>
-                    </div>
+                    <hr />
                   </div>
                 </div>
               </div>
-            </div>
             ))}
           </div>
         </div>

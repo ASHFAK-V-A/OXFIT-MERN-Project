@@ -2,13 +2,11 @@ import Members from "../models/Members.js";
 import mongoose from "mongoose";
 import validateAdmssionForm from "../validations/AdmssionForm.js";
 import PlanSchema from "../models/Plans.js";
-import jwt from "jsonwebtoken";
 import MemberShipFeeScheam from "../models/memberShipFee.js";
 import Razorpay from "razorpay";
 import crypto from "crypto";
-import MemberShip from "../models/MemberShip.js";
 import moment from "moment";
-
+import { decodeToken } from "../utils/jwt.js";
 export const Admission = (req, res) => {
   const { errors, isValid } = validateAdmssionForm(req.body);
 
@@ -32,9 +30,7 @@ export const Admission = (req, res) => {
     if (age < 13) {
       return res.status(400).json({ age: "Minimum required age is 13" });
     }
-
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
-    const id = decode.id;
+const id = decodeToken(token)
 
     Members.findByIdAndUpdate(
       { _id: id },
@@ -70,14 +66,11 @@ export const Admission = (req, res) => {
 
 export const CheckoutUser = (req, res) => {
   let token;
-
   try {
     token = req.headers.authorization.split(" ")[1];
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
-    const id = decode.id;
-    const objid = mongoose.Types.ObjectId(id);
+    const id= decodeToken(token)
     Members.aggregate([
-      { $match: { _id: objid } },
+      { $match: { _id: id } },
 
       {
         $project: {
@@ -110,23 +103,20 @@ export const CheckoutUser = (req, res) => {
 };
 
 export const memberPlan = (req, res) => { 
+  try {
   let token
-    token = req.headers.authorization.split(' ')[1]
-  console.log(token);
-  const decode = jwt.verify(token, process.env.JWT_SECRET);
-  const id = decode.id;
-  const objid = mongoose.Types.ObjectId(id);
-   
+    token = req.headers.authorization.split(" ")[1]
+const id = decodeToken(token)
+
   function formatDate(date) {
-    const d = new Date(date);
+    const d = new Date(date); 
     const year = d.getFullYear();
     const month = ('0' + (d.getMonth() + 1)).slice(-2);
     const day = ('0' + d.getDate()).slice(-2);
     return `${day}-${month}-${year}`;
   }
   
-  Members.findById(objid).then((memberisplan)=>{
-    console.log(memberisplan); 
+  Members.findById(id).then((memberisplan)=>{
     if(memberisplan.isApplication){
       const activationDate = formatDate(memberisplan.planActivationDate);
       console.log(activationDate);
@@ -142,7 +132,9 @@ export const memberPlan = (req, res) => {
       });
   };
   }) 
-  
+} catch (error) {
+    console.log(error.message);
+}
   }
 
 
@@ -228,10 +220,7 @@ export const VerifyPayment = async (req, res) => {
   let token;
   try {
     token = req.body.headers.Authorization.split(" ")[1];
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
-    const id = decode.id;
-    const objid = mongoose.Types.ObjectId(id);
-
+    const id =decode(token)
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body.response;
 
@@ -245,7 +234,7 @@ export const VerifyPayment = async (req, res) => {
     if (razorpay_signature !== expectedSign) {
       return res.status(400).json({ message: "Invalid signature sent!" });
     } else {
-      const member = await Members.findById(objid);
+      const member = await Members.findById(id);
       if (!member) {
         return res.status(400).json({ message: "Member not found" });
       }

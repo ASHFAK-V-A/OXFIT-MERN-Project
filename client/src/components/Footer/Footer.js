@@ -28,12 +28,12 @@ function Footer() {
 <h5 className="headin5_amrc col_white_amrc pt2">Quick links</h5>
 
 <ul className="footer_ul_amrc">
-<li><a href="http://webenlance.com">Image Rectoucing</a></li>
-<li><a href="http://webenlance.com">Clipping Path</a></li>
-<li><a href="http://webenlance.com">Hollow Man Montage</a></li>
-<li><a href="http://webenlance.com">Ebay & Amazon</a></li>
-<li><a href="http://webenlance.com">Hair Masking/Clipping</a></li>
-<li><a href="http://webenlance.com">Image Cropping</a></li>
+<li><a >Image Rectoucing</a></li>
+<li><a >Clipping Path</a></li>
+<li><a >Hollow Man Montage</a></li>
+<li><a >Ebay & Amazon</a></li>
+<li><a >Hair Masking/Clipping</a></li>
+<li><a >Image Cropping</a></li>
 </ul>
 
 </div>
@@ -44,12 +44,12 @@ function Footer() {
 <h5 className="headin5_amrc col_white_amrc pt2">Quick links</h5>
 
 <ul className="footer_ul_amrc">
-<li><a href="http://webenlance.com">Remove Background</a></li>
-<li><a href="http://webenlance.com">Shadows & Mirror Reflection</a></li>
-<li><a href="http://webenlance.com">Logo Design</a></li>
-<li><a href="http://webenlance.com">Vectorization</a></li>
-<li><a href="http://webenlance.com">Hair Masking/Clipping</a></li>
-<li><a href="http://webenlance.com">Image Cropping</a></li>
+<li><a>Remove Background</a></li>
+<li><a>Shadows & Mirror Reflection</a></li>
+<li><a>Logo Design</a></li>
+<li><a>Vectorization</a></li>
+<li><a>Hair Masking/Clipping</a></li>
+<li><a>Image Cropping</a></li>
 </ul>
 
 </div>
@@ -60,9 +60,9 @@ function Footer() {
 
 
 <ul className="footer_ul2_amrc">
-<li><a href="#"><i className="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
-<li><a href="#"><i className="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
-<li><a href="#"><i className="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
+<li><a ><i className="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
+<li><a ><i className="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
+<li><a ><i className="fab fa-twitter fleft padding-right"></i> </a><p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p></li>
 </ul>
 
 </div>

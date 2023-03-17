@@ -3,7 +3,7 @@ import PlanSchema from "../models/Plans.js";
 import MembersSchema from "../models/Members.js";
 import MemberShipFeeScheam from "../models/memberShipFee.js";
 import bcrypt from "bcrypt";
-import { memberPlan } from "./MemberController.js";
+
 
 
 

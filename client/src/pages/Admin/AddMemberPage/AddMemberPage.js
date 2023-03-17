@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import AdminSidebar from '../../../components/Admin/AdminSidebar/AdminSidebar'
 import AddMember from '../../../components/Admin/AddMember/AddMember'

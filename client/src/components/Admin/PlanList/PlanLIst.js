@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PlanLIst.css";
 import axios from "../../../axios/axiosInstance";
-import antd, { message } from "antd";
+import { message } from "antd";
 
 function PlanLIst() {
   const [PlanForm, setPlanForm] = useState({
@@ -27,7 +27,7 @@ function PlanLIst() {
         setError(error.message);
       });
   }, [posted]);
-
+console.log(error);
 
   const OnChangeHandler = (e) => {
     const { name, value } = e.target;

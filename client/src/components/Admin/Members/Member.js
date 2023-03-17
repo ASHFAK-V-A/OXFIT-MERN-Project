@@ -49,7 +49,7 @@ const [allMembers,setAllmembers]=useState([])
     <tbody>
     <tr>
       <th scope="row">1</th>
-      <td><img src="https://t4.ftcdn.net/jpg/01/18/03/33/240_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" class="rounded-circle" alt="Profile Image" style={{width:50}} /></td>
+      <td><img src="https://t4.ftcdn.net/jpg/01/18/03/33/240_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" className="rounded-circle" alt="Profile Image" style={{width:50}} /></td>
       <td>{membe.name}</td>
       <td>{membe.email}</td>
 

@@ -1,11 +1,8 @@
 import { BrowserRouter,Routes, Route} from 'react-router-dom'
 import Login from '../../pages/User/Login/Login'
-
 import React from 'react'
 import Home from '../../pages/User/Home/Home'
-import AdmissionPage from '../../pages/User/AdmssionPage/AdmssionPage'
 import Checkout from '../User/Checkout/Checkout'
-
 import PlanPage from '../../pages/User/PlanPage/PlanPage'
 import AdmissionForm from '../User/AdmissionForm/AdmissionForm'
 

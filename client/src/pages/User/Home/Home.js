@@ -18,9 +18,8 @@ import { useEffect } from 'react'
   if(!isAuth){
 
     navigate('/login')
-    
+  
   }
-
   },[])
 
   return (

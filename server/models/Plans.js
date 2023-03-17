@@ -23,15 +23,6 @@ const PlansSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-PlansSchema.virtual("expiration").get(function () {
-  const currentDate = new Date();
-  const expirationDate = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() + this.duration,
-    currentDate.getDate()
-  );
-  return expirationDate;
-});
 
 const PlanSchema = mongoose.model("plans", PlansSchema);
 

@@ -5,7 +5,7 @@ const MemberShipFee= mongoose.Schema({
         type:Number
     }
 },
-{ timestamps: true })
+{ timestamps: true }) 
 
 const MemberShipFeeScheam = mongoose.model('MemberShipFee',MemberShipFee)
 
