@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../../axios/axiosInstance";
 import "./PlanTable.css";
-
+import PlanExp from "../../Layout/PlanExp";
 function PlanTable() {
   const [plan, setPlan] = useState([]);
   const [isAdmisson, setAdmssion] = useState(false);
   const [MemberData, setMemberData] = useState([]);
-
+  const [PlaxExp,setPlanExp]=useState(false)
+  const [PlanExpMsg,setPlanExpMsg]=useState()
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
@@ -17,21 +18,26 @@ function PlanTable() {
         },
       })
       .then((response) => {
-        console.log(response);
         const isAdmission = response.data.isApplication;
         const Member = response.data;
         setAdmssion(isAdmission);
         setPlan(response.data);
         setMemberData([Member]);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((erorr) => {
+        setAdmssion(false)
+        setPlanExp(true)
+   const err=erorr.response.data.message
+setPlanExpMsg(err)
       });
   }, [isAdmisson]);
 
   return (
     <>
+
       {!isAdmisson ? (
+
+    
         <div id="generic_price_table">
           <div className="container">
             <div className="row">
@@ -42,7 +48,7 @@ function PlanTable() {
               </div>
             </div>
           </div>
-
+               {PlanExp ?(<PlanExp PlanExpMsg={PlanExpMsg} />):""}
           <div className="container">
             <div className="row">
               {plan.map((plan) => (
@@ -192,8 +198,11 @@ function PlanTable() {
             ))}
           </div>
         </div>
+        
+    
       )}
     </>
+    
   );
 }
 
