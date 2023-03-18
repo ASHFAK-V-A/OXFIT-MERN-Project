@@ -220,7 +220,7 @@ export const VerifyPayment = async (req, res) => {
   let token;
   try {
     token = req.body.headers.Authorization.split(" ")[1];
-    const id =decode(token)
+    const id =decodeToken(token)
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body.response;
 
@@ -267,3 +267,16 @@ export const VerifyPayment = async (req, res) => {
     console.log(error.message);
   }
 };
+
+ 
+ export const PlanRenewal = (req,res) =>{
+
+
+      PlanSchema.find()
+      .sort({ PlanAmount: 1 })
+      .then((isSorted) => {
+        res.status(200).json(isSorted);
+      });
+
+
+}

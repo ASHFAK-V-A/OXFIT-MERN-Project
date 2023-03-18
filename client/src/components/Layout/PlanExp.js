@@ -1,13 +1,27 @@
 import React,{useState,useEffect} from 'react'
-import PlanTable from '../User/Plan/PlanTable';
+import axios  from '../../axios/axiosInstance';
+import { Link } from 'react-router-dom';
 function PlanExp({PlanExpMsg}) {
   
   const [PlanRenew,setPlanRenew]=useState(false)
-
+  const [PlanList,setPlanList]=useState([])
+  const token = sessionStorage.getItem('token')
 
 const RenewPlan =()=>{
 setPlanRenew(true)
 }
+
+useEffect(()=>{
+axios.get('/planrenewal',{
+  headers: {
+    authorization: `Bearer ${token}`,
+  }
+}).then((response)=>{
+setPlanList(response.data)
+
+})
+},[PlanRenew])
+
 
 
   return (
@@ -52,39 +66,26 @@ setPlanRenew(true)
 ):(
 <div class="container">
         <div class="row">
+          {PlanList.map((planlist)=>(
+
+   
             <div class="col-lg-4 mb-lg-0 mb-3">
+              {console.log(planlist)}
+        
                 <div class="card p-3">
-                    <h1 className=''>500</h1>
+                  <h4 className='mb-4'>{planlist.PlanName}</h4>
+                    <h1 className=''>{planlist.PlanAmount}</h1>
                     <div class="number">
-                      <small className='fw-bold'>For 1 month</small>
+                      <small className='fw-bold'>For {planlist.PlanDuration} month</small>
                     </div>
                     <div class="d-flex align-items-center justify-content-end">
-                    <button className='btn btn-primary'>Select</button>
+                     <Link className='btn btn-primary' to={`/checkout/${planlist._id}`}>select</Link>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 mb-lg-0 mb-3">
-                <div class="card p-3">
-                    <h1 className=''>500</h1>
-                    <div class="number">
-                      <small className='fw-bold'>For 1 month</small>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-end">
-                    <button className='btn btn-primary'>Select</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-lg-0 mb-3">
-                <div class="card p-3">
-                    <h1 className=''>500</h1>
-                    <div class="number">
-                      <small className='fw-bold'>For 1 month</small>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-end">
-                    <button className='btn btn-primary'>Select</button>
-                    </div>
-                </div>
-            </div>
+                ))}
+           
+    
 
             </div>
             

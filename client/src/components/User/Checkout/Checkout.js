@@ -15,7 +15,7 @@ function Checkout() {
   const [editUser, setEditUser] = useState(false);
 
   const id = useParams().id;
-
+console.log("hidd",id);
   const text = `
 Please note that as of today, all members entering the gym
 will be required to pay an admission fee 1000 .This fee will be
