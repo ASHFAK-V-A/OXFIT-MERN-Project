@@ -1,6 +1,21 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Footer from '../../Footer/Footer'
+import axios from '../../../axios/axiosInstance'
+
 function Home() {
+
+const member = sessionStorage.getItem('member')
+const [TotalMemb,setTotalMemb]=useState({})
+
+
+useEffect(()=>{
+axios.get('/home').then((response)=>{
+setTotalMemb(response.data)
+})
+},[])
+
+
+
   return (
     <div>
       <div className='bg-light'>
@@ -10,7 +25,7 @@ function Home() {
         <div className="container ps-3 ">
    
    <div className='pt-5'>
-   <h4 className='fw-bolder'>Welcome User !</h4>
+   <h4 className='fw-bolder'>Welcome  {member} !</h4>
    </div>
    
    <div className="mt-5">
@@ -28,7 +43,7 @@ function Home() {
    <div className="card-body ">
    <h5 className="card-title mb-3">Members Counting</h5>
    
-   <h2 className='text-end pt-2 fw-bolder'>10</h2>
+   <h2 className='text-end pt-2 fw-bolder'>{TotalMemb.members}</h2>
    </div>
    </div>
    </div>
@@ -36,7 +51,7 @@ function Home() {
    <div className="card  mb-4 ">
    <div className="card-body">
    <h5 className="card-title mb-3">Men's</h5>
-   <h2 className='text-end pt-2 fw-bolder'>10</h2>
+   <h2 className='text-end pt-2 fw-bolder'>{TotalMemb.menMembersCount}</h2>
    </div>
    </div>
    </div>
@@ -44,7 +59,7 @@ function Home() {
    <div className="card  mb-4 ">
    <div className="card-body">
    <h5 className="card-title mb-3">Women's</h5>
-   <h2 className='text-end pt-2 fw-bolder'>10</h2>
+   <h2 className='text-end pt-2 fw-bolder'>{TotalMemb.womenMembersCount}</h2>
    </div>
    </div>
    </div>

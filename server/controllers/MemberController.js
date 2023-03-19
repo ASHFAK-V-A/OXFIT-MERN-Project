@@ -7,8 +7,41 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import moment from "moment";
 import { decodeToken } from "../utils/jwt.js";
+
+
+ export const  Home =  async (req,res)=>{
+
+  try {
+    
+
+  // total members count
+  const members = await Members.find().count();
+  // Filter the data to show only women count
+  const womenMembersCount = await Members.countDocuments({ gender: 'female' });
+
+  // Filter the data to show only men count
+  const menMembersCount = await Members.countDocuments({ gender: 'male' });
+
+  return res.status(200).json({
+    members,
+    womenMembersCount,
+    menMembersCount
+
+  })
+
+
+} catch (error) {
+    console.log(error.message);
+  }
+
+
+
+
+}
+
+
 export const Admission = (req, res) => {
-  const { errors, isValid } = validateAdmssionForm(req.body);
+  const { errors, isValid } = validateAdmssionForm(req.body); 
 
   if (!isValid) {
     return res.status(400).json(errors);

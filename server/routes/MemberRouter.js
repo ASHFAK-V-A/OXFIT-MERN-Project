@@ -1,6 +1,6 @@
 import express from 'express'
 import {Admission,CheckoutUser,memberPlan,tottalAmount,    
-getMemberShipFee,RazorPayInstance,VerifyPayment,PlanRenewal } from '../controllers/MemberController.js'
+getMemberShipFee,RazorPayInstance,VerifyPayment,PlanRenewal,Home } from '../controllers/MemberController.js'
 
 import { Login } from '../controllers/authController.js'
 import protect from '../Middlewares/authMiddleware.js'
@@ -10,6 +10,8 @@ const router = express.Router()
 
 
 router.post('/login',Login)      
+
+router.get('/home',Home)
 
 router.post('/admission',protect,Admission)
 
