@@ -1,13 +1,12 @@
 import express from 'express'
 import {Admission,CheckoutUser,memberPlan,tottalAmount,    
-getMemberShipFee,RazorPayInstance,VerifyPayment,PlanRenewal,Home } from '../controllers/MemberController.js'
-
+getMemberShipFee,RazorPayInstance,VerifyPayment,PlanRenewal,Home, } from '../controllers/MemberController.js'
+import {MemberPage} from '../controllers/DatabaseController.js'
 import { Login } from '../controllers/authController.js'
 import protect from '../Middlewares/authMiddleware.js'
 import checkPlanExpiration from '../Middlewares/checkMemberPlan.js'
 
 const router = express.Router()
-
 
 router.post('/login',Login)      
 
@@ -28,5 +27,7 @@ router.post('/payment',RazorPayInstance)
 router.post('/VerifyPayment/:id',VerifyPayment)
 
 router.get('/planrenewal',protect,PlanRenewal)
+
+router.get('/members',MemberPage)
 
 export default router 

@@ -5,6 +5,7 @@ import Home from '../../pages/User/Home/Home'
 import Checkout from '../User/Checkout/Checkout'
 import PlanPage from '../../pages/User/PlanPage/PlanPage'
 import AdmissionForm from '../User/AdmissionForm/AdmissionForm'
+import MembersPage from '../../pages/User/MembersPage/MembersPage'
 
 
 function UserComponets() {
@@ -24,6 +25,8 @@ function UserComponets() {
  <Route path='/admissionform/:id' element={<AdmissionForm />}></Route>
 
 <Route path='/checkout/:id' element={<Checkout/>} ></Route>
+
+<Route path='/members' element={<MembersPage/>}></Route>
 
 </Routes>
 

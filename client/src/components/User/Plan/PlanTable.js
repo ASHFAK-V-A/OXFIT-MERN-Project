@@ -191,7 +191,7 @@ setPlanExpMsg(err)
                         {memberdetail.planExpirationDate}
                       </div>
                     </div>
-                    <hr />
+           
                   </div>
                 </div>
               </div>

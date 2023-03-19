@@ -1,9 +1,12 @@
 
-#generic_price_table{
-	background-color: #f0eded;
-}
 
 /*PRICE COLOR CODE START*/
+
+.card.mb-3{
+
+	box-shadow: 1px 1px 12px rgb(81, 81, 81);
+	
+}
 #generic_price_table .generic_content{
 	background-color: #fff;
 }

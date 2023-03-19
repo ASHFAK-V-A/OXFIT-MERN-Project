@@ -62,7 +62,7 @@ function SideBar() {
         </header> 
     <div className="main-body">
 
-        <div className="l-navbar" id="nav-bar">
+        <div className="l-navbar bg-white" id="nav-bar">
           <nav className="nav"> 
             <div>
               <Link  className="nav_logo">
@@ -79,7 +79,7 @@ function SideBar() {
                <span className="nav_name" >Admission</span> </Link> 
 
          
-                <Link className="nav_links">
+                <Link to='/members' className="nav_links">
                   <i className="bx bx-group nav_icon"></i>{' '}
                   <span className="nav_name">Members</span>
                 </Link>
