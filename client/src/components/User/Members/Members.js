@@ -41,11 +41,11 @@ useEffect(()=>{
                 className="rounded-circle"
                 alt="Profile Image"
                 style={{ width: 50 }}
-              />
+              /> 
             </td>
-            <td>{members.name}</td>
+            <td>{members.name}</td>   
             <td>{members.email}</td>
-
+ 
         
             <td>
               <button className="btn btn-primary"><i className="fa fa-message"></i></button>
